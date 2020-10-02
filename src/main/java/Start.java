@@ -1,4 +1,3 @@
-import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -6,6 +5,9 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
+
+import java.io.FileInputStream;
+
 import java.util.Properties;
 
 public class Start extends TelegramLongPollingBot {
@@ -14,9 +16,9 @@ public class Start extends TelegramLongPollingBot {
     private static String BOT_NAME;
 
     public static void main(String[] args) {
+        readConfig();
 
-
-        ApiContextInitializer.init();
+        //ApiContextInitializer.init();
         TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
 
         try {
@@ -24,6 +26,8 @@ public class Start extends TelegramLongPollingBot {
         } catch (TelegramApiRequestException e) {
             e.printStackTrace();
         }
+
+
 
     }
 
@@ -40,12 +44,10 @@ public class Start extends TelegramLongPollingBot {
 
             switch (message.getText()) {
                 case "/help" : sendMessage(message, "привет");
-
+                case "/Start" : sendMessage(message, "Добро пожаловать!");
 
         }
 
-        System.out.println(message.getText());
-        System.out.println(update.getMessage());
 
       //  log.fine(update.getMessage().getText().toString());
     }
@@ -75,5 +77,24 @@ public class Start extends TelegramLongPollingBot {
     @Override
     public String getBotUsername() {
          return BOT_NAME;
+    }
+
+    /**
+     * Method for reading config.properties
+     */
+
+    private static void readConfig() {
+        FileInputStream fileInputStream;
+        Properties properties = new Properties();
+
+        try {
+            fileInputStream = new FileInputStream("src/main/resources/config.properties");
+            properties.load(fileInputStream);
+            BOT_NAME = properties.getProperty("BOT_NAME");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
     }
 }
