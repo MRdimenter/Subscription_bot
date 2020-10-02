@@ -6,12 +6,12 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
-
-import java.util.List;
+import java.util.Properties;
 
 public class Start extends TelegramLongPollingBot {
     //private static Logger log = Logger.getLogger(Start.class.getName()); //логирование
 
+    private static String BOT_NAME;
 
     public static void main(String[] args) {
 
@@ -74,6 +74,6 @@ public class Start extends TelegramLongPollingBot {
 
     @Override
     public String getBotUsername() {
-         return "lotsubbot";
+         return BOT_NAME;
     }
 }
