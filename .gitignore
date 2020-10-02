@@ -51,3 +51,4 @@ project.properties
 project.properties
 !/src/main/resources/config.properties
 src/test/
+!/.idea/
