@@ -1,3 +1,4 @@
+import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -19,7 +20,7 @@ public class Start extends TelegramLongPollingBot {
     public static void main(String[] args) {
         readConfig();
 
-        //ApiContextInitializer.init();
+        ApiContextInitializer.init();
         TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
 
         try {
@@ -45,7 +46,7 @@ public class Start extends TelegramLongPollingBot {
 
             switch (message.getText()) {
                 case "/help" : sendMessage(message, "привет");
-                case "/Start" : sendMessage(message, "Добро пожаловать!");
+                case "/start" : sendMessage(message, "Добро пожаловать!");
 
         }
 
