@@ -9,9 +9,10 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
 import java.io.FileInputStream;
 
 import java.util.Properties;
+import java.util.logging.Logger;
 
 public class Start extends TelegramLongPollingBot {
-    //private static Logger log = Logger.getLogger(Start.class.getName()); //логирование
+    private static Logger log = Logger.getLogger(Start.class.getName()); //логирование
 
     private static String BOT_NAME;
 
