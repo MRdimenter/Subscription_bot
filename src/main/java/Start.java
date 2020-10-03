@@ -74,13 +74,13 @@ public class Start extends TelegramLongPollingBot {
 
     @Override
     public String getBotToken() {
-        return BOT_TOKEN;
+        return System.getenv("BOT_TOKEN");
     }
 
 
     @Override
     public String getBotUsername() {
-        return BOT_NAME;
+        return System.getenv("BOT_NAME");
     }
 
     /**
