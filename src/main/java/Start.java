@@ -53,7 +53,7 @@ public class Start extends TelegramLongPollingBot {
         }
 
 
-        //  log.fine(update.getMessage().getText().toString());
+          log.fine(update.getMessage().getText().toString());
     }
 
 
