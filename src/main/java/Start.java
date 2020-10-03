@@ -14,11 +14,11 @@ import java.util.logging.Logger;
 
 public class Start extends TelegramLongPollingBot {
     private static Logger log = Logger.getLogger(Start.class.getName()); //логирование
-    private static String BOT_TOKEN;
-    private static String BOT_NAME;
+  //  private static String BOT_TOKEN;
+  //  private static String BOT_NAME;
 
     public static void main(String[] args) {
-        readConfig();
+        //readConfig();
 
         ApiContextInitializer.init();
         TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
@@ -48,6 +48,8 @@ public class Start extends TelegramLongPollingBot {
                 break;
             case "/start":
                 sendMessage(message, "Добро пожаловать!");
+            case "/log":
+                sendMessage(message, "Все работает");
                 break;
 
         }
@@ -87,7 +89,7 @@ public class Start extends TelegramLongPollingBot {
      * Method for reading config.properties
      */
 
-    private static void readConfig() {
+    /*private static void readConfig() {
         FileInputStream fileInputStream;
         Properties properties = new Properties();
 
@@ -102,5 +104,5 @@ public class Start extends TelegramLongPollingBot {
         }
 
 
-    }
+    }*/
 }
