@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 
 public class Start extends TelegramLongPollingBot {
     private static Logger log = Logger.getLogger(Start.class.getName()); //логирование
-
+    private static String BOT_TOKEN;
     private static String BOT_NAME;
 
     public static void main(String[] args) {
@@ -30,28 +30,30 @@ public class Start extends TelegramLongPollingBot {
         }
 
 
-
     }
 
 
     /**
      * Метод для приема сообщений.
+     *
      * @param update Содержит сообщение от пользователя.
      */
 
     public void onUpdateReceived(Update update) {
         Message message = update.getMessage();
 
-
-
-            switch (message.getText()) {
-                case "/help" : sendMessage(message, "привет");
-                case "/start" : sendMessage(message, "Добро пожаловать!");
+        switch (message.getText()) {
+            case "/help":
+                sendMessage(message, "привет");
+                break;
+            case "/start":
+                sendMessage(message, "Добро пожаловать!");
+                break;
 
         }
 
 
-      //  log.fine(update.getMessage().getText().toString());
+        //  log.fine(update.getMessage().getText().toString());
     }
 
 
@@ -59,7 +61,7 @@ public class Start extends TelegramLongPollingBot {
         SendMessage sendMessage = new SendMessage();
         sendMessage.enableMarkdown(true);
         sendMessage.setChatId(message.getChatId().toString());
-       // sendMessage.setReplyToMessageId(message.getMessageId()); //Если необходимо сделать реплай
+        // sendMessage.setReplyToMessageId(message.getMessageId()); //Если необходимо сделать реплай
         sendMessage.setText(text);
 
         try {
@@ -72,13 +74,13 @@ public class Start extends TelegramLongPollingBot {
 
     @Override
     public String getBotToken() {
-        return "1236836643:AAG5WGEaULc1R72Q2roDGcswJx55N-TMyxc";
+        return BOT_TOKEN;
     }
 
 
     @Override
     public String getBotUsername() {
-         return BOT_NAME;
+        return BOT_NAME;
     }
 
     /**
@@ -93,6 +95,8 @@ public class Start extends TelegramLongPollingBot {
             fileInputStream = new FileInputStream("src/main/resources/config.properties");
             properties.load(fileInputStream);
             BOT_NAME = properties.getProperty("BOT_NAME");
+            BOT_TOKEN = properties.getProperty("BOT_TOKEN");
+
         } catch (Exception e) {
             e.printStackTrace();
         }
