@@ -24,14 +24,12 @@ public class ChatCommand extends Start {
      */
 
     public void startDialog() {
-
         switch (message.getText()) {
             case "/start":
-                sendMessage(message, "Добро пожаловать " + message.getFrom().getFirstName() + " " +message.getFrom().getLastName() +  " ! Я создан что-бы отслеживать ваши платные подписки!");
+                sendMessage(message, "Добро пожаловать " + message.getFrom().getFirstName() + " " + (message.getFrom().getLastName().equals("null") ? message.getFrom().getLastName() : "") +  " ! Я создан что-бы отслеживать ваши платные подписки!");
                 log.info("Сообщение пользователю отправлено");
                 postgres = new PostgresConnection();
-                postgres.setUserToDatabase(message.getChatId(), message.getFrom().getFirstName());
-
+                postgres.setUserToDatabase(message.getChatId(), message.getFrom().getFirstName(), message.getFrom().getLastName(), message.getFrom().getUserName());
                 break;
         }
 
