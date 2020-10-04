@@ -1,13 +1,14 @@
 package Database;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.logging.Logger;
 
 public class PostgresConnection {
+    private final static String ADD_USER = "insert into userpeople (id, name) VALUES (?, ?)";
     private static Logger log = Logger.getLogger(PostgresConnection.class.getName()); //логирование
     private Connection connection;
+    private Statement statement;
+    private PreparedStatement preparedStatement;
 
 
     public PostgresConnection() {
@@ -23,6 +24,7 @@ public class PostgresConnection {
     private Connection getConnection() {
         try {
             connection = DriverManager.getConnection(System.getenv("DATA_URL"), System.getenv("DATA_USER"), System.getenv("DATA_PASSWORD"));
+            this.statement = connection.createStatement();
         } catch (SQLException e) {
             log.severe("Не удалось загрузить Driver Manager");
             return null;
@@ -37,4 +39,17 @@ public class PostgresConnection {
         else log.info("- - - Failed to make connection to database - - -");
     }
 
+
+    public void setUserToDatabase(long id, String name) {
+        try {
+            preparedStatement = connection.prepareStatement(ADD_USER);
+
+            preparedStatement.setLong(1, id);
+            preparedStatement.setString(2, name);
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            log.severe("Ошибка PostgresConnection");
+        }
+    }
 }
