@@ -32,6 +32,7 @@ public class Start extends TelegramLongPollingBot {
     /**
      * Метод для приема сообщений.
      * @param update Содержит сообщение от пользователя.
+     *               
      */
 
     public void onUpdateReceived(Update update) {
