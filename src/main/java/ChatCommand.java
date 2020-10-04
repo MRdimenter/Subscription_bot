@@ -1,3 +1,4 @@
+import Database.PostgresConnection;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -9,7 +10,7 @@ public class ChatCommand extends Start {
     private static Logger log = Logger.getLogger(ChatCommand.class.getName()); //логирование
     private Update update;
     private Message message;
-
+    private PostgresConnection postgres;
 
     ChatCommand(Update update) {
         this.update = update;
@@ -27,6 +28,7 @@ public class ChatCommand extends Start {
             case "/start":
                 sendMessage(message, "Добро пожаловать! Я создан что-бы отслеживать ваши платные подписки!");
                 log.info("Сообщение пользователю отправлено");
+                postgres = new PostgresConnection();
                 break;
         }
 
