@@ -27,8 +27,8 @@ public class ChatCommand extends Start {
 
         switch (message.getText()) {
             case "/start":
-                sendMessage(message, "Добро пожаловать! Я создан что-бы отслеживать ваши платные подписки!");
-                log.info("Сообщение пользователю отправлено!!!!!!");
+                sendMessage(message, "Добро пожаловать " + message.getFrom().getFirstName() + " " + (message.getFrom().getLastName().equals("null") ? message.getFrom().getLastName() : "") +  " ! Я создан что-бы отслеживать ваши платные подписки!");
+                log.info("Сообщение пользователю отправлено");
                 //postgres = new PostgresConnection();
                 //postgres.setUserToDatabase(message.getChatId(), message.getFrom().getUserName());
                 break;
