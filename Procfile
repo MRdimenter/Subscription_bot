@@ -1,1 +1,3 @@
-web: sh target/bin/main
+
+worker: java -jar target/bin/main.jar
+
