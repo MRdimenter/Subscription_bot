@@ -1,3 +1,2 @@
-
-worker: java -jar target/SubscriptionBot-8.jar
+worker: sh target/bin/main
 
