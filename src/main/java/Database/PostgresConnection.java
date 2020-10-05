@@ -12,7 +12,7 @@ public class PostgresConnection {
     private Connection connection;
     private Statement statement;
     private PreparedStatement preparedStatement;
-    
+
 
     public PostgresConnection() {
        connection = getConnection();
@@ -45,7 +45,7 @@ public class PostgresConnection {
 
     public void setUserToDatabase(long id, String firstName, String lastName, String userName) {
         try {
-            preparedStatement = connection.prepareStatement(SqlRequests.ADD_USER);
+            preparedStatement = connection.prepareStatement(ADD_USER);
 
             preparedStatement.setLong(1, id);
             preparedStatement.setString(2, firstName);
