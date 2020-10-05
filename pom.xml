@@ -7,6 +7,7 @@
     <groupId>org.example</groupId>
     <artifactId>SubscriptionBot</artifactId>
     <version>8</version>
+    <packaging>jar</packaging>
 
     <dependencies>
         <dependency>
@@ -51,7 +52,7 @@
                     <programs>
                         <program>
                             <mainClass>Start</mainClass>
-                            <name>main</name>
+                            <name>workerBot</name>
                         </program>
                     </programs>
                 </configuration>

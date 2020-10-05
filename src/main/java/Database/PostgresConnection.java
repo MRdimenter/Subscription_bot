@@ -1,10 +1,13 @@
 package Database;
 
+
+
+
 import java.sql.*;
 import java.util.logging.Logger;
 
 public class PostgresConnection {
-    private final static String ADD_USER = "insert into userpeople (id, name) VALUES (?, ?)";
+    private final static String ADD_USER = "insert into userpeople (id, firstName, lastName, userName) VALUES (?, ?,?,?)";
     private static Logger log = Logger.getLogger(PostgresConnection.class.getName()); //логирование
     private Connection connection;
     private Statement statement;
@@ -40,12 +43,14 @@ public class PostgresConnection {
     }
 
 
-    public void setUserToDatabase(long id, String name) {
+    public void setUserToDatabase(long id, String firstName, String lastName, String userName) {
         try {
             preparedStatement = connection.prepareStatement(ADD_USER);
 
             preparedStatement.setLong(1, id);
-            preparedStatement.setString(2, name);
+            preparedStatement.setString(2, firstName);
+            preparedStatement.setString(3, lastName);
+            preparedStatement.setString(4, userName);
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {

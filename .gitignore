@@ -46,9 +46,7 @@ local.properties
 `enter code here`proguard/
 
 
-project.properties
-*.properties
 
 src/test/
 !/.idea/
-!/src/main/resources/
+
