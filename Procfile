@@ -1,1 +1,1 @@
-web: sh target/bin/main
+worker: sh target/bin/main
