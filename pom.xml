@@ -52,7 +52,7 @@
                     <programs>
                         <program>
                             <mainClass>Start</mainClass>
-                            <name>workerBot</name>
+                            <name>main</name>
                         </program>
                     </programs>
                 </configuration>
