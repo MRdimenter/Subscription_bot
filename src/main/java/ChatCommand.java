@@ -11,6 +11,7 @@ public class ChatCommand extends Start {
     private Update update;
     private Message message;
     private PostgresConnection postgres;
+    User user = new User(update);
 
     ChatCommand(Update update) {
         this.update = update;
@@ -27,10 +28,10 @@ public class ChatCommand extends Start {
 
         switch (message.getText()) {
             case "/start":
-                sendMessage(message, "Добро пожаловать " + message.getFrom().getFirstName() + " " + message.getFrom().getLastName() + " ! Я создан что-бы отслеживать ваши платные подписки!");
+                sendMessage(message, "Добро пожаловать " + user.getFirstNameAndLastName() + " ! Я создан что-бы отслеживать ваши платные подписки!");
                 log.info("Сообщение пользователю отправлено");
                 postgres = new PostgresConnection();
-                postgres.setUserToDatabase(message.getChatId(),message.getFrom().getFirstName(), message.getFrom().getLastName(), message.getFrom().getUserName());
+                postgres.setUserToDatabase(user.getId(),user.getFirstName(), user.getLastName(), user.getUserName());
                 break;
         }
 
