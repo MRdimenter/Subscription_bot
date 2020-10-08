@@ -57,8 +57,9 @@ public  class ChatCommand extends Start {
         sendMessage.setText(text);
 
         try {
-            execute(sendMessage);
             setButtons(sendMessage);
+            execute(sendMessage);
+
         } catch (TelegramApiException e) {
             e.printStackTrace();
 
