@@ -79,6 +79,7 @@ public  class ChatCommand extends Start {
         keyboardRowFirst.add(new KeyboardButton("Просмотреть"));
 
         keyboardRows.add(keyboardRowFirst);
+        replyKeyboardMarkup.setKeyboard(keyboardRows);
 
 
     }
