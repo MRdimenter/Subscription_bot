@@ -1,5 +1,6 @@
+package Main;
+
 import org.telegram.telegrambots.meta.api.objects.Message;
-import org.telegram.telegrambots.meta.api.objects.Update;
 
 public class User extends Start {
     private long id;

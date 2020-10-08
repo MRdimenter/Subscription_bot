@@ -51,7 +51,7 @@
                     <assembleDirectory>target</assembleDirectory>
                     <programs>
                         <program>
-                            <mainClass>Start</mainClass>
+                            <mainClass>Main.Start</mainClass>
                             <name>main</name>
                         </program>
                     </programs>

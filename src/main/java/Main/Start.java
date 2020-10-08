@@ -1,3 +1,5 @@
+package Main;
+
 import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
@@ -17,7 +19,7 @@ public class Start extends TelegramLongPollingBot {
 
         try {
             telegramBotsApi.registerBot(new Start());
-            log.info("----Start bot----");
+            log.info("----Main.Start bot----");
         } catch (TelegramApiRequestException e) {
             e.printStackTrace();
         }
@@ -42,7 +44,7 @@ public class Start extends TelegramLongPollingBot {
 
 
     @Override
-    public String getBotUsername() { return System.getenv("BOT_NAME"); }
+    public String getBotUsername() { return System.getenv("BOT_TOKEN");}
 
 
 }
