@@ -1,16 +1,15 @@
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
-public class User {
+public class User extends Start {
     private long id;
     private String firstName;
     private String lastName;
     private String userName;
-    private Message message;
+    //private Message message;
 
 
-    public User (Update update) {
-        message = update.getMessage();
+    public User (Message message) {
         id = message.getChatId();
         firstName  = message.getFrom().getFirstName();
         lastName = message.getFrom().getLastName();
@@ -38,4 +37,6 @@ public class User {
         if(lastName != null) return firstName + " " + lastName;
         else return firstName;
     }
+
+
 }

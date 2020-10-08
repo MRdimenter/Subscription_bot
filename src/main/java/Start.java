@@ -4,7 +4,11 @@ import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
 
+import java.util.logging.Logger;
+
 public class Start extends TelegramLongPollingBot {
+    private static Logger log = Logger.getLogger(Start.class.getName()); //логирование
+
     public static void main(String[] args) {
 
 
@@ -13,6 +17,7 @@ public class Start extends TelegramLongPollingBot {
 
         try {
             telegramBotsApi.registerBot(new Start());
+            log.info("----Start bot----");
         } catch (TelegramApiRequestException e) {
             e.printStackTrace();
         }
@@ -28,20 +33,16 @@ public class Start extends TelegramLongPollingBot {
      */
 
     public void onUpdateReceived(Update update) {
-        ChatCommand chatCommand = new ChatCommand(update);
+        Model model = new Model(update);
     }
 
 
     @Override
-    public String getBotToken() {
-        return System.getenv("BOT_TOKEN");
-    }
+    public String getBotToken() { return System.getenv("BOT_TOKEN"); }
 
 
     @Override
-    public String getBotUsername() {
-        return System.getenv("BOT_NAME");
-    }
+    public String getBotUsername() { return System.getenv("BOT_NAME"); }
 
 
 }

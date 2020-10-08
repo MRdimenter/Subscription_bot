@@ -11,27 +11,29 @@ public class ChatCommand extends Start {
     private Update update;
     private Message message;
     private PostgresConnection postgres;
-    User user = new User(update);
+   // User user = new User(update);
 
-    ChatCommand(Update update) {
+    public ChatCommand(Update update) {
         this.update = update;
         this.message = update.getMessage();
-        startDialog();
+
     }
 
+    public ChatCommand() {}
 
     /**
      * Метод для стартового диалога
      */
 
-    public void startDialog() {
+    public void startDialog(Message message, User user) {
 
         switch (message.getText()) {
             case "/start":
+               
                 sendMessage(message, "Добро пожаловать " + user.getFirstNameAndLastName() + " ! Я создан что-бы отслеживать ваши платные подписки!");
                 log.info("Сообщение пользователю отправлено");
                 postgres = new PostgresConnection();
-                postgres.setUserToDatabase(user.getId(),user.getFirstName(), user.getLastName(), user.getUserName());
+               // postgres.setUserToDatabase(user.getId(),user.getFirstName(), user.getLastName(), user.getUserName());
                 break;
         }
 
