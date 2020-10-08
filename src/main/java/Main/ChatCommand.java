@@ -3,8 +3,13 @@ package Main;
 import Database.PostgresConnection;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 public  class ChatCommand extends Start {
@@ -53,10 +58,29 @@ public  class ChatCommand extends Start {
 
         try {
             execute(sendMessage);
+            setButtons(sendMessage);
         } catch (TelegramApiException e) {
             e.printStackTrace();
 
         }
+    }
+
+    public void setButtons(SendMessage sendMessage) {
+        ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup(); //инициалзиация клавиатуры
+        sendMessage.setReplyMarkup(replyKeyboardMarkup); //устанавливаем разметку
+        replyKeyboardMarkup.setSelective(true);
+        replyKeyboardMarkup.setResizeKeyboard(true); //адаптивность
+        replyKeyboardMarkup.setOneTimeKeyboard(false); //скрытие клавиутары после нажатия
+
+        List<KeyboardRow> keyboardRows = new ArrayList<>();
+
+        KeyboardRow keyboardRowFirst = new KeyboardRow();
+        keyboardRowFirst.add(new KeyboardButton("Добавить"));
+        keyboardRowFirst.add(new KeyboardButton("Просмотреть"));
+
+        keyboardRows.add(keyboardRowFirst);
+
+
     }
 
 }
