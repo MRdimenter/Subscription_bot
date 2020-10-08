@@ -31,6 +31,11 @@ public class Model extends Start {
         botState.state();
         botState.changeActivity();
         botState.state();
+        botState.changeActivity();
+        botState.state();
+        botState.changeActivity();
+        botState.state();
+        botState.changeActivity();
         }
 
 

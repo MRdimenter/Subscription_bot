@@ -40,11 +40,11 @@ public class Start extends TelegramLongPollingBot {
 
 
     @Override
-    public String getBotToken() { return System.getenv("BOT_TOKEN"); }
+    public String getBotToken() {return System.getenv("BOT_TOKEN"); }
 
 
     @Override
-    public String getBotUsername() { return System.getenv("BOT_TOKEN");}
+    public String getBotUsername() { return "lotsubbot"; }
 
 
 }

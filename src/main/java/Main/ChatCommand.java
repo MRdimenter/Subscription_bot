@@ -29,20 +29,31 @@ public  class ChatCommand extends Start {
 
     public void startDialog(Message message, User user) {
 
-
-                sendMessage(message, "Добро пожаловать " + user.getFirstNameAndLastName() + " ! Я создан что-бы отслеживать ваши платные подписки!");
-                log.info("Сообщение пользователю отправлено");
-                postgres = new PostgresConnection();
-               // postgres.setUserToDatabase(user.getId(),user.getFirstName(), user.getLastName(), user.getUserName());
+                if(message.getText().equals("/start")) {
+                    sendMessage(message, "Добро пожаловать " + user.getFirstNameAndLastName() + " ! Я создан что-бы отслеживать ваши платные подписки!");
+                    log.info("Сообщение пользователю отправлено");
+                    postgres = new PostgresConnection();
+                    // postgres.setUserToDatabase(user.getId(),user.getFirstName(), user.getLastName(), user.getUserName());
+                }
 
         }
 
 
 
    public void addSub(Message message) {
-        sendMessage(message,"Добавьте подписку за которой вы хотите следить:");
-        String sub = message.getText();
-        log.info("Пользователь " + message.getChatId() + "хочет следить за подпиской: " + sub);
+            if(message.getText().equals("Добавить"))
+            sendMessage(message, "Добавьте подписку за которой вы хотите следить:");
+            String sub = message.getText();
+            log.info("Пользователь " + message.getChatId() + "хочет следить за подпиской: " + sub);
+
+    }
+
+
+    public void sendSub(Message message) {
+        if(message.getText().equals("OK")) {
+            log.info("--- Добавлена подписка: " + message.getText());
+            sendMessage(message, "Подписка добавлена");
+        }
     }
 
     /**
@@ -78,7 +89,7 @@ public  class ChatCommand extends Start {
         KeyboardRow keyboardRowFirst = new KeyboardRow();
         keyboardRowFirst.add(new KeyboardButton("Добавить"));
         keyboardRowFirst.add(new KeyboardButton("Просмотреть"));
-
+        keyboardRowFirst.add(new KeyboardButton("OK"));
         keyboardRows.add(keyboardRowFirst);
         replyKeyboardMarkup.setKeyboard(keyboardRows);
 

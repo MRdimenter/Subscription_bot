@@ -16,6 +16,8 @@ public class BotState {
 
     public void changeActivity() {
         if(activity instanceof Welcome) setActivity(new AddSubscription(message));
+        else if(activity instanceof AddSubscription) setActivity(new SendSubscription(message));
+        else if(activity instanceof SendSubscription) setActivity(new Stable());
 
     }
 
