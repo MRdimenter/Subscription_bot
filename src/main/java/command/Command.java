@@ -1,5 +1,6 @@
 package command;
 
+import ability.Button;
 import database.PostgresConnection;
 import com.vdurmont.emoji.EmojiParser;
 import main.Keyboard;
@@ -43,15 +44,29 @@ public class Command extends Start {
      * Метод для вывода главного меню
      */
     public void menu(Message message) {
+        if(message.getText().equals("Menu"))
         sendMessage(message, Keyboard.menu());
     }
 
 
     public void subscription(Message message) {
-        if (message.getText().equals("Подписки")) {
+        if (message.getText().equals(Button.SUBSCRIPTION.get())) {
             log.info("--- Подписки ---");
             sendMessage(message, "Добавьте или редактируете свои подписочные сервисы", Keyboard.subscribe());
         }
+    }
+
+
+    public void instal(Message message) {
+        if(message.getText().equals(Button.ADD.get())) {
+            log.info("--- Добавление подписки ---");
+            sendMessage(message, "Напишите какой сервис следует добавить:");
+        }
+    }
+
+    public void outsub (Message message) {
+        String out = message.getText();
+        log.info("Подписка: " + out);
     }
 
     /**
@@ -97,7 +112,7 @@ public class Command extends Start {
         sendMessage.setChatId(message.getChatId().toString());
         // sendMessage.setReplyToMessageId(message.getMessageId()); //Если необходимо сделать реплай
         setButtons(sendMessage, keyboardRowList);
-        sendMessage.setText("");
+        sendMessage.setText("Отлично :)");
 
         try {
             execute(sendMessage);

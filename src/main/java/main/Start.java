@@ -40,7 +40,7 @@ public class Start extends TelegramLongPollingBot {
 
 
     @Override
-    public String getBotToken() {return System.getenv("BOT_TOKEN"); }
+    public String getBotToken() {return "1236836643:AAG5WGEaULc1R72Q2roDGcswJx55N-TMyxc"; }
 
 
     @Override

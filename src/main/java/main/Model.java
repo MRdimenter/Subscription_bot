@@ -33,6 +33,8 @@ public class Model extends Start {
         activityBot.changeActivity();
         activityBot.state();
         activityBot.changeActivity();
+        activityBot.state();
+        activityBot.changeActivity();
         }
 
 
