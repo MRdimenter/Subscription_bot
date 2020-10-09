@@ -1,5 +1,6 @@
 package main;
 
+import ability.Button;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 
@@ -13,9 +14,9 @@ public class Keyboard {
         List<KeyboardRow> keyboardRow = new ArrayList<>();
 
         KeyboardRow keyboardRowFirst = new KeyboardRow();
-        keyboardRowFirst.add(new KeyboardButton("Подписки"));
-        keyboardRowFirst.add(new KeyboardButton("Статистика"));
-        keyboardRowFirst.add(new KeyboardButton("Настройки"));
+        keyboardRowFirst.add(new KeyboardButton(Button.SUBSCRIPTION.get()));
+        keyboardRowFirst.add(new KeyboardButton(Button.STATISCTICS.get()));
+        keyboardRowFirst.add(new KeyboardButton(Button.SETTINGS.get()));
         keyboardRow.add(keyboardRowFirst);
 
         return keyboardRow;
@@ -26,8 +27,8 @@ public class Keyboard {
         List<KeyboardRow> keyboardRow = new ArrayList<>();
 
         KeyboardRow keyboardRowFirst = new KeyboardRow();
-        keyboardRowFirst.add(new KeyboardButton("Добавить"));
-        keyboardRowFirst.add(new KeyboardButton("Редактировать"));
+        keyboardRowFirst.add(new KeyboardButton(Button.ADD.get()));
+        keyboardRowFirst.add(new KeyboardButton(Button.EDIT.get()));
         keyboardRow.add(keyboardRowFirst);
 
         return keyboardRow;
