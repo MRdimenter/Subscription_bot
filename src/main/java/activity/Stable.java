@@ -1,4 +1,4 @@
-package Activity;
+package activity;
 
 import java.util.logging.Logger;
 

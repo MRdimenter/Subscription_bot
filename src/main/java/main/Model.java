@@ -1,8 +1,6 @@
-package Main;
+package main;
 
-import Activity.Activity;
-import Activity.BotState;
-import Activity.Welcome;
+import activity.*;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 import java.util.logging.Logger;
@@ -14,10 +12,9 @@ import java.util.logging.Logger;
 public class Model extends Start {
     private static Logger log = Logger.getLogger(Model.class.getName()); //логирование
     private Update update;
-    private ChatCommand chatCommand;
-    private User user;
 
-    private BotState botState;
+
+    private ActivityBot activityBot;
 
     public Model(Update update) {
             log.info("--- Main.Start model ---");
@@ -26,16 +23,16 @@ public class Model extends Start {
             //user = new User(update.getMessage());
 
             //chatCommand.startDialog(update.getMessage(),user);
-        botState = new BotState(update.getMessage());
-        botState.setActivity(new Welcome(update.getMessage()));
-        botState.state();
-        botState.changeActivity();
-        botState.state();
-        botState.changeActivity();
-        botState.state();
-        botState.changeActivity();
-        botState.state();
-        botState.changeActivity();
+        activityBot = new ActivityBot(update.getMessage());
+        activityBot.setActivity(new ActivityStart(update.getMessage()));
+        activityBot.state();
+        activityBot.changeActivity();
+        activityBot.state();
+        activityBot.changeActivity();
+        activityBot.state();
+        activityBot.changeActivity();
+        activityBot.state();
+        activityBot.changeActivity();
         }
 
 

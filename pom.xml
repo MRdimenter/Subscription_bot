@@ -28,6 +28,14 @@
             <artifactId>postgresql</artifactId>
             <version>42.2.16</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.vdurmont/emoji-java -->
+        <dependency>
+            <groupId>com.vdurmont</groupId>
+            <artifactId>emoji-java</artifactId>
+            <version>4.0.0</version>
+        </dependency>
+
     </dependencies>
 
 
@@ -51,7 +59,7 @@
                     <assembleDirectory>target</assembleDirectory>
                     <programs>
                         <program>
-                            <mainClass>Main.Start</mainClass>
+                            <mainClass>main.Start</mainClass>
                             <name>main</name>
                         </program>
                     </programs>

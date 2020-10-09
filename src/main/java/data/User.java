@@ -1,5 +1,6 @@
-package Main;
+package data;
 
+import main.Start;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
 public class User extends Start {
