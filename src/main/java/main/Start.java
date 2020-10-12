@@ -1,5 +1,8 @@
 package main;
 
+import activity.ActivityBot;
+import activity.ActivityMenu;
+import activity.ActivityStart;
 import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
@@ -10,7 +13,8 @@ import java.util.logging.Logger;
 
 public class Start extends TelegramLongPollingBot {
     private static Logger log = Logger.getLogger(Start.class.getName()); //логирование
-
+    private static int i = 0;
+    private Model model = new Model();
     public static void main(String[] args) {
 
 
@@ -18,6 +22,7 @@ public class Start extends TelegramLongPollingBot {
         TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
 
         try {
+
             telegramBotsApi.registerBot(new Start());
             log.info("----Main.Start bot----");
         } catch (TelegramApiRequestException e) {
@@ -35,7 +40,20 @@ public class Start extends TelegramLongPollingBot {
      */
 
     public void onUpdateReceived(Update update) {
-        Model model = new Model(update);
+        System.out.println("__________________ НОВЫЙ АПДЕЙТ ______________________");
+        System.out.println("СООБЩЕНИЕ ----------> " + update.getMessage().getText());
+        /*activityBot = new ActivityBot(update.getMessage());
+        if (update.getMessage().getText().equals("/start"))  activityBot.setActivity(new ActivityStart(update.getMessage()));
+
+        activityBot.state();
+        activityBot.changeActivity();
+        activityBot.state();
+        activityBot.changeActivity();
+        activityBot.state();
+        activityBot.changeActivity();
+        activityBot.state();
+        activityBot.changeActivity();*/
+       model.start(update);
     }
 
 

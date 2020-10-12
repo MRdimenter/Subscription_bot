@@ -1,6 +1,7 @@
 package main;
 
 import activity.*;
+import data.Subscribe;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 import java.util.logging.Logger;
@@ -9,20 +10,23 @@ import java.util.logging.Logger;
  *
  */
 
-public class Model extends Start {
+public class Model  {
     private static Logger log = Logger.getLogger(Model.class.getName()); //логирование
-    private Update update;
-
-
+   // private Update update;
+    Subscribe subscribe = new Subscribe();
+    private int i = 1;
     private ActivityBot activityBot;
 
-    public Model(Update update) {
-            log.info("--- Main.Start model ---");
-            this.update = update;
-            //chatCommand = new ChatCommand();
-            //user = new User(update.getMessage());
+    public Model() {
 
-            //chatCommand.startDialog(update.getMessage(),user);
+
+        }
+
+
+    public void start(Update update) {
+
+        log.info("--- Main.Start model ---");
+        System.out.println("СООБЩЕНИЕ МОДЕЛИ --------------->" + update.getMessage().getText());
         activityBot = new ActivityBot(update.getMessage());
         activityBot.setActivity(new ActivityStart(update.getMessage()));
         activityBot.state();
@@ -30,16 +34,6 @@ public class Model extends Start {
         activityBot.state();
         activityBot.changeActivity();
         activityBot.state();
-        activityBot.changeActivity();
-        activityBot.state();
-        activityBot.changeActivity();
-        activityBot.state();
-        activityBot.changeActivity();
-        }
-
-
-
-
-
     }
+}
 

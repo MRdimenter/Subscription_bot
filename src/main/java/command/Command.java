@@ -1,6 +1,7 @@
 package command;
 
 import ability.Button;
+import data.Subscribe;
 import database.PostgresConnection;
 import com.vdurmont.emoji.EmojiParser;
 import main.Keyboard;
@@ -44,7 +45,6 @@ public class Command extends Start {
      * Метод для вывода главного меню
      */
     public void menu(Message message) {
-        if(message.getText().equals("Menu"))
         sendMessage(message, Keyboard.menu());
     }
 
@@ -64,10 +64,20 @@ public class Command extends Start {
         }
     }
 
-    public void outsub (Message message) {
-        String out = message.getText();
-        log.info("Подписка: " + out);
+    public String outsub (Message message) {
+            String out = message.getText();
+            log.info("Подписка: " + out);
+            return message.getText();
+
+
     }
+
+    public void billing(Message message) {
+            log.info("--- Расчётный период ---");
+            sendMessage(message, "Напишите расчётный период: Например, 1 месяц");
+    }
+
+
 
     /**
      * Метод для отправки сообщения пользователю
@@ -136,26 +146,6 @@ public class Command extends Start {
 
     }
 
-  /*  public List<KeyboardRow> keySubscription() {
-        List<KeyboardRow> keyboardRows = new ArrayList<>();
 
-        KeyboardRow keyboardRowFirst = new KeyboardRow();
-        keyboardRowFirst.add(new KeyboardButton("Добавить"));
-        keyboardRowFirst.add(new KeyboardButton("Просмотреть"));
-        keyboardRows.add(keyboardRowFirst);
-
-        return keyboardRows;
-    }*/
-
-    public List<KeyboardRow> choiceSubscription() {
-        List<KeyboardRow> keyboardRows = new ArrayList<>();
-
-        KeyboardRow keyboardRowFirst = new KeyboardRow();
-        keyboardRowFirst.add(new KeyboardButton("OK"));
-        keyboardRowFirst.add(new KeyboardButton("Отмена"));
-        keyboardRows.add(keyboardRowFirst);
-
-        return keyboardRows;
-    }
 
 }
