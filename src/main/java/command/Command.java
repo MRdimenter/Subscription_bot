@@ -122,7 +122,7 @@ public class Command extends Start {
         sendMessage.setChatId(message.getChatId().toString());
         // sendMessage.setReplyToMessageId(message.getMessageId()); //Если необходимо сделать реплай
         setButtons(sendMessage, keyboardRowList);
-        sendMessage.setText("Отлично :)");
+       // sendMessage.setText("Отлично :)");
 
         try {
             execute(sendMessage);
@@ -139,8 +139,6 @@ public class Command extends Start {
         replyKeyboardMarkup.setSelective(true);
         replyKeyboardMarkup.setResizeKeyboard(true); //адаптивность
         replyKeyboardMarkup.setOneTimeKeyboard(true); //скрытие клавиутары после нажатия
-
-
         replyKeyboardMarkup.setKeyboard(keyboardRowList);
 
 

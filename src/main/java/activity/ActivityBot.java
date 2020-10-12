@@ -1,14 +1,15 @@
 package activity;
 
 import ability.Button;
+import data.Subscribe;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
 public class ActivityBot {
     private Activity activity;
     private Message message;
 
-    public ActivityBot(Message message) {
-        this.message = message;
+    public ActivityBot() {
+        //this.message = message;
     }
 
     public void setActivity(Activity activity) {
@@ -30,4 +31,9 @@ public class ActivityBot {
     public void state() {
         activity.state();
     }
+
+    public void setMessage(Message message) {
+        this.message = message;
+    }
+
 }

@@ -19,7 +19,7 @@ public class ActivityMenu implements Activity {
 
     @Override
     public void state() {
-        command.menu(message);
+      //  command.menu(message);
         log.info("--- state Menu ---");
     }
 }

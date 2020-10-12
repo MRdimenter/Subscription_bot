@@ -13,9 +13,8 @@ import java.util.logging.Logger;
 public class Model  {
     private static Logger log = Logger.getLogger(Model.class.getName()); //логирование
    // private Update update;
-    Subscribe subscribe = new Subscribe();
     private int i = 1;
-    private ActivityBot activityBot;
+    private ActivityBot activityBot = new ActivityBot();
 
     public Model() {
 
@@ -27,7 +26,8 @@ public class Model  {
 
         log.info("--- Main.Start model ---");
         System.out.println("СООБЩЕНИЕ МОДЕЛИ --------------->" + update.getMessage().getText());
-        activityBot = new ActivityBot(update.getMessage());
+        //activityBot = new ActivityBot(update.getMessage());
+        activityBot.setMessage(update.getMessage());
         activityBot.setActivity(new ActivityStart(update.getMessage()));
         activityBot.state();
         activityBot.changeActivity();
