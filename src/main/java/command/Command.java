@@ -44,8 +44,8 @@ public class Command extends Start {
     /**
      * Метод для вывода главного меню
      */
-    public void menu(Message message) {
-        sendMessage(message, Keyboard.menu());
+    public void menu(Message message, String text) {
+        sendMessage(message, text ,Keyboard.menu());
     }
 
 
@@ -72,9 +72,12 @@ public class Command extends Start {
 
     }
 
-    public void billing(Message message) {
+    public String billing(Message message) {
             log.info("--- Расчётный период ---");
             sendMessage(message, "Напишите расчётный период: Например, 1 месяц");
+            String out = message.getText();
+            log.info("Период платежей: " + out);
+            return out;
     }
 
 
