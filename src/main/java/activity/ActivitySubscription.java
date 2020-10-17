@@ -1,6 +1,7 @@
 package activity;
 
 
+import ability.Button;
 import command.Command;
 import data.Subscribe;
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -22,20 +23,37 @@ public class ActivitySubscription  implements Activity {
 
     @Override
     public void state() {
+
         log.info("--- State subscription ---");
         if(message.getText().equals("Подписки")) {
             command.subscription(message);
 
 
-        }
-        else if(message.getText().equals("Добавить")) command.instal(message);
-        else if(subscribe.getName() == null || subscribe.getName().equals("")) subscribe.setName(command.outsub(message));
-        else if(subscribe.getBilling() == null || subscribe.getBilling().equals("")) subscribe.setBilling(command.billing(message));
-        else command.menu(message, "- - Подписка добавлена - -");
 
-        System.out.println("BILLING: " + subscribe.getBilling());
+        }
+        if(message.getText().equals("Добавить")) {
+            command.instal(message);
+            subscribe.flagactivity = true;
+            return;
+
+        }
+
+        if(subscribe.flagactivity) {
+            if((subscribe.getName() == null || subscribe.getName().equals("")) ) subscribe.setName(command.outsub(message));
+            else if((subscribe.getBilling() == null || subscribe.getBilling().equals(""))) {
+                subscribe.setBilling(command.billing(message));
+                command.menu(message, "Подписка добавлена");
+            }
+
+            System.out.println("NAME: " + subscribe.getName());
+            System.out.println("BILLING: " + subscribe.getBilling());
+        }
+
+
+
 
     }
+
 
     public Subscribe getSubscribe() {
         return subscribe;

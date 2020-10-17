@@ -23,7 +23,7 @@ public class Model  {
 
 
     public void start(Update update) {
-
+/*
         log.info("--- Main.Start model ---");
         System.out.println("СООБЩЕНИЕ МОДЕЛИ --------------->" + update.getMessage().getText());
         //activityBot = new ActivityBot(update.getMessage());
@@ -34,6 +34,10 @@ public class Model  {
         activityBot.state();
         activityBot.changeActivity();
         activityBot.state();
-    }
+        activityBot.changeActivity();
+        activityBot.state();
+    }*/
+
+}
 }
 

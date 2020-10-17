@@ -58,15 +58,16 @@ public class Command extends Start {
 
 
     public void instal(Message message) {
-        if(message.getText().equals(Button.ADD.get())) {
+
             log.info("--- Добавление подписки ---");
             sendMessage(message, "Напишите какой сервис следует добавить:");
-        }
+
     }
 
     public String outsub (Message message) {
             String out = message.getText();
             log.info("Подписка: " + out);
+            sendMessage(message, "Напишите расчётный период: Например, 1 месяц");
             return message.getText();
 
 
@@ -74,7 +75,7 @@ public class Command extends Start {
 
     public String billing(Message message) {
             log.info("--- Расчётный период ---");
-            sendMessage(message, "Напишите расчётный период: Например, 1 месяц");
+            //sendMessage(message, "Напишите расчётный период: Например, 1 месяц");
             String out = message.getText();
             log.info("Период платежей: " + out);
             return out;
