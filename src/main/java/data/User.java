@@ -1,13 +1,19 @@
 package data;
 
+import database.PostgresConnection;
 import main.Start;
 import org.telegram.telegrambots.meta.api.objects.Message;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class User extends Start {
     private long id;
     private String firstName;
     private String lastName;
     private String userName;
+    private List<Subscribe> subscribes = new ArrayList<>();
+    PostgresConnection postgresConnection = new PostgresConnection();
     //private Message message;
 
 
@@ -38,6 +44,10 @@ public class User extends Start {
     public String getFirstNameAndLastName() {
         if(lastName != null) return firstName + " " + lastName;
         else return firstName;
+    }
+
+    public void setUser() { ;
+        postgresConnection.setUserToDatabase(id,firstName, lastName, userName);
     }
 
 

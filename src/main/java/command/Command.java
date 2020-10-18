@@ -46,6 +46,7 @@ public class Command extends Start {
      */
     public void menu(Message message, String text) {
         sendMessage(message, text ,Keyboard.menu());
+        System.out.println("Menu");
     }
 
 
