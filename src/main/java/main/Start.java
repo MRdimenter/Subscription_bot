@@ -1,8 +1,5 @@
 package main;
 
-import activity.ActivityBot;
-import activity.ActivityMenu;
-import activity.ActivityStart;
 import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.TelegramBotsApi;

@@ -1,6 +1,6 @@
 package main;
 
-import activity.*;
+
 import command.Command;
 import data.Subscribe;
 import data.User;
