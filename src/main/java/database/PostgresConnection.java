@@ -11,6 +11,7 @@ public class PostgresConnection {
     private final static String OUT_STATE = "select state from userpeople where id = ?";
     private final static String IS_USER = "SELECT EXISTS(SELECT id FROM userpeople WHERE id = ?)";
     private final static String UPDATE_STATE = "update userpeople set state = ? where id = ?";
+    private final static String GET_STATE = "update userpeople set state = ? where id = ?";
     private static Logger log = Logger.getLogger(PostgresConnection.class.getName()); //логирование
     private Connection connection;
     private Statement statement;
@@ -97,6 +98,7 @@ public class PostgresConnection {
         }
 
     }
+
 
 
     //SELECT EXISTS(SELECT id FROM userpeople WHERE id = ?)

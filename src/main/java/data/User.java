@@ -50,5 +50,13 @@ public class User extends Start {
         postgresConnection.setUserToDatabase(id,firstName, lastName, userName);
     }
 
+    public void setUserStateToId(String state) {
+        postgresConnection.setUserStateToId(id, state);
+    }
+
+    public String getUserStateToId() {
+        return postgresConnection.getUserStateToId(id);
+    }
+
 
 }

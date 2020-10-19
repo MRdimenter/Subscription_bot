@@ -51,10 +51,10 @@ public class Command extends Start {
 
 
     public void subscription(Message message) {
-        if (message.getText().equals(Button.SUBSCRIPTION.get())) {
+
             log.info("--- Подписки ---");
             sendMessage(message, "Добавьте или редактируете свои подписочные сервисы", Keyboard.subscribe());
-        }
+
     }
 
 

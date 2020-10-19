@@ -22,6 +22,7 @@ public class ActivityStart implements Activity {
     @Override
     public void state() {
         command.start(message, user);
+        user.setUser();
         log.info("--- state welcome");
     }
 

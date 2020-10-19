@@ -42,17 +42,7 @@ public class Start extends TelegramLongPollingBot {
     public void onUpdateReceived(Update update) {
         System.out.println("__________________ НОВЫЙ АПДЕЙТ ______________________");
         System.out.println("СООБЩЕНИЕ ----------> " + update.getMessage().getText());
-        /*activityBot = new ActivityBot(update.getMessage());
-        if (update.getMessage().getText().equals("/start"))  activityBot.setActivity(new ActivityStart(update.getMessage()));
 
-        activityBot.state();
-        activityBot.changeActivity();
-        activityBot.state();
-        activityBot.changeActivity();
-        activityBot.state();
-        activityBot.changeActivity();
-        activityBot.state();
-        activityBot.changeActivity();*/
        model.start(update);
     }
 

@@ -21,10 +21,6 @@ public class ActivityBot {
         else if(activity instanceof ActivityMenu) {
             setActivity(new ActivitySubscription(message, subscribe));
         } else if(activity instanceof ActivitySubscription) setActivity(new Stable(message, subscribe));
-       // else if(activity instanceof ActivitySubscription) setActivity(new ActivityInstall(message));
-       // else if(activity instanceof ActivityInstall) setActivity(new ActivityInput(message));
-       // else if(activity instanceof ActivityInput) setActivity(new Stable());
-      //  else if(activity instanceof ActivityInput) setActivity(new Stable());
 
     }
 

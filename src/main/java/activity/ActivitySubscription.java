@@ -4,6 +4,7 @@ package activity;
 import ability.Button;
 import command.Command;
 import data.Subscribe;
+import data.User;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import java.util.logging.Logger;
 
@@ -13,11 +14,13 @@ public class ActivitySubscription  implements Activity {
     private Message message;
     private Command command;
     Subscribe subscribe;
+    private User user;
 
     public ActivitySubscription(Message message, Subscribe subscribe) {
         this.message = message;
         command = new Command();
         this.subscribe = subscribe;
+        this.user = new User(message);
 
     }
 
@@ -33,12 +36,13 @@ public class ActivitySubscription  implements Activity {
         }
         if(message.getText().equals("Добавить")) {
             command.instal(message);
-            subscribe.flagactivity = true;
+            //subscribe.flagactivity = true;
+            user.setUserStateToId("addingsub");
             return;
 
         }
 
-        if(subscribe.flagactivity) {
+        if(user.getUserStateToId().equals("addingsub")) {
             if((subscribe.getName() == null || subscribe.getName().equals("")) ) subscribe.setName(command.outsub(message));
             else if((subscribe.getBilling() == null || subscribe.getBilling().equals(""))) {
                 subscribe.setBilling(command.billing(message));
