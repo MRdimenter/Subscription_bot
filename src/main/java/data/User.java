@@ -2,6 +2,7 @@ package data;
 
 import database.PostgresConnection;
 import main.Start;
+import main.State;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
 import java.util.ArrayList;
@@ -14,14 +15,20 @@ public class User extends Start {
     private String userName;
     private List<Subscribe> subscribes = new ArrayList<>();
     PostgresConnection postgresConnection = new PostgresConnection();
+    private State state;
     //private Message message;
 
 
-    public User (Message message) {
+    public User(Message message) {
         id = message.getChatId();
-        firstName  = message.getFrom().getFirstName();
+        firstName = message.getFrom().getFirstName();
         lastName = message.getFrom().getLastName();
         userName = message.getFrom().getUserName();
+        state = State.MENU;
+    }
+
+    public User(Long id) {
+        this.id = id;
     }
 
     public long getId() {
@@ -47,7 +54,7 @@ public class User extends Start {
     }
 
     public void setUser() { ;
-        postgresConnection.setUserToDatabase(id,firstName, lastName, userName);
+        postgresConnection.setUserToDatabase(id, firstName, lastName, userName);
     }
 
     public void setUserStateToId(String state) {
@@ -56,6 +63,12 @@ public class User extends Start {
 
     public String getUserStateToId() {
         return postgresConnection.getUserStateToId(id);
+    }
+
+
+    public void updateState(Message message) {
+        System.out.println("User: " + message.getChatId());
+        state = state.doSomething(message);
     }
 
 

@@ -10,7 +10,6 @@ import java.util.logging.Logger;
 
 public class Start extends TelegramLongPollingBot {
     private static Logger log = Logger.getLogger(Start.class.getName()); //логирование
-    private static int i = 0;
     private Model model = new Model();
     public static void main(String[] args) {
 
@@ -21,7 +20,6 @@ public class Start extends TelegramLongPollingBot {
         try {
 
             telegramBotsApi.registerBot(new Start());
-            log.info("----Main.Start bot----");
         } catch (TelegramApiRequestException e) {
             e.printStackTrace();
         }

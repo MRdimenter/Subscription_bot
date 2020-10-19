@@ -3,6 +3,8 @@ package database;
 
 
 
+import data.User;
+
 import java.sql.*;
 import java.util.logging.Logger;
 
@@ -109,14 +111,26 @@ public class PostgresConnection {
 
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next())
-            return resultSet.getBoolean("exists");
+                return resultSet.getBoolean("exists");
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return false;
     }
 
+    public User getUser(long id) {
+        try {
+            preparedStatement = connection.prepareStatement(IS_USER);
+            preparedStatement.setLong(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) ;
 
+            return new User(id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 
 }
