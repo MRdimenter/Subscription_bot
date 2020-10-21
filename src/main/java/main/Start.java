@@ -13,7 +13,6 @@ public class Start extends TelegramLongPollingBot {
     private Model model = new Model();
     public static void main(String[] args) {
 
-
         ApiContextInitializer.init();
         TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
 

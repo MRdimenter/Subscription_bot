@@ -7,6 +7,7 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class User extends Start {
     private long id;
@@ -49,11 +50,11 @@ public class User extends Start {
     }
 
     public String getFirstNameAndLastName() {
-        if(lastName != null) return firstName + " " + lastName;
+        if (lastName != null) return firstName + " " + lastName;
         else return firstName;
     }
 
-    public void setUser() { ;
+    public void setUser() {
         postgresConnection.setUserToDatabase(id, firstName, lastName, userName);
     }
 
@@ -72,4 +73,19 @@ public class User extends Start {
     }
 
 
+    /**
+     * Переопределяем Hashcode для сравнения объектов User
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return id == user.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

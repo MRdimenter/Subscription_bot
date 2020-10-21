@@ -2,6 +2,7 @@ package main;
 
 import ability.Button;
 import command.Command;
+import database.PostgresConnection;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
 public enum State {
@@ -10,6 +11,7 @@ public enum State {
         public State doSomething(Message message) {
             if (message.getText().equals("/start")) {
                 command.menu(message, "Вы можете выбрать что угодно");
+                postgresConnection.setUserToDatabase(message.getChatId(), message.getFrom().getFirstName(), message.getFrom().getLastName(), message.getFrom().getUserName());
             }
             if (message.getText().equals(Button.SUBSCRIPTION.get())) {
                 command.subscription(message);
@@ -29,7 +31,8 @@ public enum State {
 
             if (message.getText().equals(Button.EDIT.get())) {
                 System.out.println("Редактировать");
-                command.menu(message, "Получилось");
+
+                command.menu(message, postgresConnection.getUserStateToId(message.getChatId()));
                 return MENU;
             } else return this;
         }
@@ -61,6 +64,7 @@ public enum State {
 
 
     Command command = new Command();
+    PostgresConnection postgresConnection = new PostgresConnection();
 
     public abstract State doSomething(Message message);
 }

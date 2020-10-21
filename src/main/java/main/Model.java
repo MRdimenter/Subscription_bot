@@ -28,7 +28,8 @@ public class Model {
     public void start(Update update) {
         log.info("--- Main.Start model ---");
         System.out.println("СООБЩЕНИЕ МОДЕЛИ --------------->" + update.getMessage().getText());
-        if (update.getMessage().getText().equals("/start")) compileUsers.add(new User(update.getMessage()));
+        if (update.getMessage().getText().equals("/start"))
+            compileUsers.add(new User(update.getMessage()), update.getMessage());
         compileUsers.compile(update.getMessage());
         // updateState(update.getMessage());
     }

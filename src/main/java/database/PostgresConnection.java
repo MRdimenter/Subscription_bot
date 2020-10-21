@@ -21,25 +21,27 @@ public class PostgresConnection {
 
 
     public PostgresConnection() {
-       connection = getConnection();
-       validConnection();
+        //connection = SingletonConnection.getInstance().getConnection();
+        // validConnection();
+
+    }
+
+    public PostgresConnection(String s) {
+        //   connection = SingletonConnection.getInstance().getConnection();
+        // validConnection();
 
     }
 
 
-
-
-
     private Connection getConnection() {
         try {
-           // connection = DriverManager.getConnection(System.getenv("DATA_URL"), System.getenv("DATA_USER"), System.getenv("DATA_PASSWORD")); //for heroku
+            // connection = DriverManager.getConnection(System.getenv("DATA_URL"), System.getenv("DATA_USER"), System.getenv("DATA_PASSWORD")); //for heroku
             connection = DriverManager.getConnection("jdbc:postgresql://ec2-54-156-53-71.compute-1.amazonaws.com:5432/d29ggoa2d1m003", "xhikaenmntzuze", "953cb11826eab3f9f5b610c50bd60e636d7086882f345f164084c180c7ed1d6b");
             this.statement = connection.createStatement();
         } catch (SQLException e) {
             log.severe("Не удалось загрузить Driver Manager");
             return null;
         }
-
         return connection;
 
     }
@@ -53,7 +55,7 @@ public class PostgresConnection {
     public void setUserToDatabase(long id, String firstName, String lastName, String userName) {
             if(!isUser(id)) {
                 try {
-                    preparedStatement = connection.prepareStatement(ADD_USER);
+                    preparedStatement = SingletonConnection.getInstance().get().prepareStatement(ADD_USER);
 
                     preparedStatement.setLong(1, id);
                     preparedStatement.setString(2, firstName);
@@ -75,7 +77,7 @@ public class PostgresConnection {
     public String getUserStateToId(long id) {
         String state = "";
         try {
-            preparedStatement = connection.prepareStatement(OUT_STATE);
+            preparedStatement = SingletonConnection.getInstance().get().prepareStatement(OUT_STATE);
             preparedStatement.setLong(1, id);
 
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -91,7 +93,7 @@ public class PostgresConnection {
 
     public void setUserStateToId(long id, String state) {
         try {
-            preparedStatement = connection.prepareStatement(UPDATE_STATE);
+            preparedStatement = SingletonConnection.getInstance().get().prepareStatement(UPDATE_STATE);
             preparedStatement.setLong(1, id);
             preparedStatement.setString(2, state);
             preparedStatement.executeUpdate();
@@ -102,16 +104,15 @@ public class PostgresConnection {
     }
 
 
-
     //SELECT EXISTS(SELECT id FROM userpeople WHERE id = ?)
-    public  boolean isUser(long id) {
+    public boolean isUser(long id) {
         try {
-            preparedStatement = connection.prepareStatement(IS_USER);
+            preparedStatement = SingletonConnection.getInstance().get().prepareStatement(IS_USER);
             preparedStatement.setLong(1, id);
 
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next())
-                return resultSet.getBoolean("exists");
+                return resultSet.getBoolean("exists"); //tck
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -120,7 +121,7 @@ public class PostgresConnection {
 
     public User getUser(long id) {
         try {
-            preparedStatement = connection.prepareStatement(IS_USER);
+            preparedStatement = SingletonConnection.getInstance().get().prepareStatement(IS_USER);
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) ;
