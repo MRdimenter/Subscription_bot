@@ -138,7 +138,6 @@ public class PostgresConnection {
     public void addSubscribe(Subscribe subscribe) {
         try {
             preparedStatement = SingletonConnection.getInstance().get().prepareStatement(ADD_SUBSCRIBE);
-            // preparedStatement.setLong(1, 2);
             preparedStatement.setString(1, subscribe.getNameService());
             preparedStatement.setString(2, subscribe.getBillingPeriod());
             preparedStatement.setDate(3, (Date) subscribe.getFirstPayment());
