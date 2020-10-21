@@ -8,8 +8,7 @@ import java.util.logging.Logger;
 
 public class CompileUsers {
     private static Logger log = Logger.getLogger(CompileUsers.class.getName()); //логирование
-    HashSet<User> users;
-    // PostgresConnection connection = new PostgresConnection("COMPILE");
+    private HashSet<User> users;
 
     public CompileUsers() {
         users = new HashSet<>();

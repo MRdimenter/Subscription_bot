@@ -25,11 +25,14 @@ public class Keyboard {
 
     public static List<KeyboardRow> subscribe() {
         List<KeyboardRow> keyboardRow = new ArrayList<>();
-
         KeyboardRow keyboardRowFirst = new KeyboardRow();
+        KeyboardRow keyboardRowTwo = new KeyboardRow();
         keyboardRowFirst.add(new KeyboardButton(Button.ADD.get()));
-        keyboardRowFirst.add(new KeyboardButton(Button.EDIT.get()));
+        keyboardRowFirst.add(new KeyboardButton(Button.DELETE.get()));
+        keyboardRowTwo.add(new KeyboardButton(Button.BACK.get()));
+
         keyboardRow.add(keyboardRowFirst);
+        keyboardRow.add(keyboardRowTwo);
 
         return keyboardRow;
 

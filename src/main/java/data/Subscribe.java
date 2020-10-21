@@ -1,31 +1,65 @@
 package data;
 
-public class Subscribe {
-    private long UserId;
-    private String name;
-    private String billing;
-    public boolean flagactivity = false;
+import java.util.Date;
 
+public class Subscribe {
+    private long id;
+    private String nameService;
+    private String billingPeriod;
+    private Date firstPayment;
+    private int Price;
+    private long userId;
 
     public Subscribe() {
 
     }
 
 
-    public long getUserId() { return UserId; }
-
-    public String getName() {
-        return name;
+    public long getId() {
+        return id;
     }
 
-    public String getBilling() {
-        return billing;
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public void setUserId(long userId) { UserId = userId; }
+    public String getNameService() {
+        return nameService;
+    }
 
-    public void setName(String name) {
-        this.name = name; }
+    public void setNameService(String nameService) {
+        this.nameService = nameService;
+    }
 
-    public void setBilling(String billing) { this.billing = billing; }
+    public String getBillingPeriod() {
+        return billingPeriod;
+    }
+
+    public void setBillingPeriod(String billingPeriod) {
+        this.billingPeriod = billingPeriod;
+    }
+
+    public Date getFirstPayment() {
+        return firstPayment;
+    }
+
+    public void setFirstPayment(Date firstPayment) {
+        this.firstPayment = firstPayment;
+    }
+
+    public int getPrice() {
+        return Price;
+    }
+
+    public void setPrice(int price) {
+        Price = price;
+    }
+
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
 }

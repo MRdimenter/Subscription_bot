@@ -1,8 +1,7 @@
 package database;
 
 
-
-
+import data.Subscribe;
 import data.User;
 
 import java.sql.*;
@@ -14,6 +13,7 @@ public class PostgresConnection {
     private final static String IS_USER = "SELECT EXISTS(SELECT id FROM userpeople WHERE id = ?)";
     private final static String UPDATE_STATE = "update userpeople set state = ? where id = ?";
     private final static String GET_STATE = "update userpeople set state = ? where id = ?";
+    private final static String ADD_SUBSCRIBE = "insert into subscribe (nameService, billingPeriod, firstPayment, price, idUser) VALUES ( ?, ?, ?,? ,?)";
     private static Logger log = Logger.getLogger(PostgresConnection.class.getName()); //логирование
     private Connection connection;
     private Statement statement;
@@ -132,6 +132,23 @@ public class PostgresConnection {
             e.printStackTrace();
         }
         return null;
+    }
+
+
+    public void addSubscribe(Subscribe subscribe) {
+        try {
+            preparedStatement = SingletonConnection.getInstance().get().prepareStatement(ADD_SUBSCRIBE);
+            // preparedStatement.setLong(1, 2);
+            preparedStatement.setString(1, subscribe.getNameService());
+            preparedStatement.setString(2, subscribe.getBillingPeriod());
+            preparedStatement.setDate(3, (Date) subscribe.getFirstPayment());
+            preparedStatement.setInt(4, subscribe.getPrice());
+            preparedStatement.setLong(5, subscribe.getUserId());
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 

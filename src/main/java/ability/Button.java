@@ -5,7 +5,9 @@ public enum Button {
     STATISCTICS("Статистика"),
     SETTINGS("Настройки"),
     ADD("Добавить"),
-    EDIT("Редактировать");
+    EDIT("Редактировать"),
+    BACK("Назад"),
+    DELETE("Удалить");
 
     private String value;
 
