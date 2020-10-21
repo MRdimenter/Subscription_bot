@@ -23,6 +23,7 @@ public class SingletonConnection {
                 if (localInstance == null) {
                     instance = localInstance = new SingletonConnection();
                     instance.getConnection();
+                    instance.validConnection();
                 }
             }
         }
@@ -47,6 +48,10 @@ public class SingletonConnection {
         return this.connection;
     }
 
+    private void validConnection() {
+        if (connection != null) log.info("- - - You successfully connected to database now - - -");
+        else log.info("- - - Failed to make connection to database - - -");
+    }
 
 }
 

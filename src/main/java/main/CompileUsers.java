@@ -16,16 +16,13 @@ public class CompileUsers {
     }
 
     public void add(User user, Message message) {
-        if (users.add(user)) System.out.println("Юзер добавлен");
-        ;
-
+        users.add(user);
     }
+
 
     public void compile(Message message) {
         for (User user : users) {
             if (message.getChatId() == user.getId()) user.updateState(message);
-
-
         }
 
     }

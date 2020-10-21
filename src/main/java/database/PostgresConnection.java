@@ -116,6 +116,7 @@ public class PostgresConnection {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         return false;
     }
 

@@ -17,7 +17,6 @@ public class User extends Start {
     private List<Subscribe> subscribes = new ArrayList<>();
     PostgresConnection postgresConnection = new PostgresConnection();
     private State state;
-    //private Message message;
 
 
     public User(Message message) {
