@@ -44,8 +44,6 @@ public class Command extends Start {
 
 
     public String nameService(Message message) {
-        String out = message.getText();
-        log.info("Подписка: " + out);
         return message.getText();
 
 
@@ -66,10 +64,10 @@ public class Command extends Start {
      */
 
     public Date firstPayment(Message message) {
-        Date date = new Date();
+
         if (message.getText().equals("сегодня"))
             log.info("Первый платеж:" + message.getText());
-        return date;
+        return new Date();
     }
 
     public int howMuchIs(Message message) {

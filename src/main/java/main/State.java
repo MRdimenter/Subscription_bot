@@ -8,6 +8,7 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 
 public enum State {
 
+
     /**
      * Меню приложения
      * 1) Подписки
@@ -61,7 +62,8 @@ public enum State {
     INPUT_SERVIE {
         public State doSomething(Message message) {
             //  System.out.println("Doing Something in INPUT_SERVIE state and jumping to INPUT_BILLING, argument = " + message.getText());
-            subscribe.setNameService(command.nameService(message));
+            serviceName = command.nameService(message);
+
             command.sendMessage(message, "Напишите расчётный период\nНапример: 1 месяц, 3 месяца, 1 год");
             return INPUT_BILLING;
         }
@@ -70,7 +72,7 @@ public enum State {
     INPUT_BILLING {
         public State doSomething(Message message) {
             //  System.out.println("Doing Something in INPUT_BILLING state and jumping to  MENU, argument = " + message.getText());
-            subscribe.setBillingPeriod(command.billingPeriod(message));
+            billingPeriod = command.billingPeriod(message);
             command.sendMessage(message, "Напишите первый платеж:\nНапример:\nСегодня\n29 ионя\n31 (актуальный месяц)");
 
             return FIRST_PAYMENT;
@@ -80,7 +82,7 @@ public enum State {
 
     FIRST_PAYMENT {
         public State doSomething(Message message) {
-            subscribe.setFirstPayment(command.firstPayment(message));
+            //  firstPayment = command.firstPayment(message);
             command.sendMessage(message, "Напишите сколько стоит подписка:");
 
             return HOW_MUCH;
@@ -89,8 +91,14 @@ public enum State {
 
     HOW_MUCH {
         public State doSomething(Message message) {
+            Subscribe subscribe = new Subscribe();
+
+            subscribe.setNameService(serviceName);
+            subscribe.setBillingPeriod(billingPeriod);
+            subscribe.setFirstPayment("2020-10-21");
             subscribe.setPrice(command.howMuchIs(message));
             subscribe.setUserId(message.getChatId());
+
             postgresConnection.addSubscribe(subscribe);
             command.menu(message, "Подписка добавлена");
 
@@ -105,7 +113,14 @@ public enum State {
         }
     };
 
-    Subscribe subscribe = new Subscribe();
+    State() {
+
+    }
+
+
+    public static String serviceName;
+    public static String billingPeriod;
+    //   public static Date firstPayment;
     Command command = new Command();
     PostgresConnection postgresConnection = new PostgresConnection();
 

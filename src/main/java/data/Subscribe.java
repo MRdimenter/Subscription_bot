@@ -1,12 +1,10 @@
 package data;
 
-import java.util.Date;
-
 public class Subscribe {
     private long id;
     private String nameService;
     private String billingPeriod;
-    private Date firstPayment;
+    private String firstPayment;
     private int Price;
     private long userId;
 
@@ -39,11 +37,11 @@ public class Subscribe {
         this.billingPeriod = billingPeriod;
     }
 
-    public Date getFirstPayment() {
+    public String getFirstPayment() {
         return firstPayment;
     }
 
-    public void setFirstPayment(Date firstPayment) {
+    public void setFirstPayment(String firstPayment) {
         this.firstPayment = firstPayment;
     }
 

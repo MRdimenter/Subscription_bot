@@ -4,7 +4,10 @@ package database;
 import data.Subscribe;
 import data.User;
 
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Date;
 import java.util.logging.Logger;
 
 public class PostgresConnection {
@@ -15,41 +18,9 @@ public class PostgresConnection {
     private final static String GET_STATE = "update userpeople set state = ? where id = ?";
     private final static String ADD_SUBSCRIBE = "insert into subscribe (nameService, billingPeriod, firstPayment, price, idUser) VALUES ( ?, ?, ?,? ,?)";
     private static Logger log = Logger.getLogger(PostgresConnection.class.getName()); //логирование
-    private Connection connection;
-    private Statement statement;
+
     private PreparedStatement preparedStatement;
 
-
-    public PostgresConnection() {
-        //connection = SingletonConnection.getInstance().getConnection();
-        // validConnection();
-
-    }
-
-    public PostgresConnection(String s) {
-        //   connection = SingletonConnection.getInstance().getConnection();
-        // validConnection();
-
-    }
-
-
-    private Connection getConnection() {
-        try {
-            // connection = DriverManager.getConnection(System.getenv("DATA_URL"), System.getenv("DATA_USER"), System.getenv("DATA_PASSWORD")); //for heroku
-            connection = DriverManager.getConnection("jdbc:postgresql://ec2-54-156-53-71.compute-1.amazonaws.com:5432/d29ggoa2d1m003", "xhikaenmntzuze", "953cb11826eab3f9f5b610c50bd60e636d7086882f345f164084c180c7ed1d6b");
-            this.statement = connection.createStatement();
-        } catch (SQLException e) {
-            log.severe("Не удалось загрузить Driver Manager");
-            return null;
-        }
-        return connection;
-
-    }
-
-    private void validConnection() {
-        if(connection != null) log.info("- - - You successfully connected to database now - - -");
-        else log.info("- - - Failed to make connection to database - - -");
-    }
 
 
     public void setUserToDatabase(long id, String firstName, String lastName, String userName) {
@@ -137,13 +108,15 @@ public class PostgresConnection {
 
     public void addSubscribe(Subscribe subscribe) {
         try {
+
             preparedStatement = SingletonConnection.getInstance().get().prepareStatement(ADD_SUBSCRIBE);
             preparedStatement.setString(1, subscribe.getNameService());
             preparedStatement.setString(2, subscribe.getBillingPeriod());
-            preparedStatement.setDate(3, (Date) subscribe.getFirstPayment());
+            preparedStatement.setDate(3, new java.sql.Date(new Date().getTime()));
             preparedStatement.setInt(4, subscribe.getPrice());
             preparedStatement.setLong(5, subscribe.getUserId());
             preparedStatement.executeUpdate();
+
 
         } catch (SQLException e) {
             e.printStackTrace();
