@@ -6,6 +6,8 @@ import data.Subscribe;
 import database.PostgresConnection;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
+import java.util.logging.Logger;
+
 public enum State {
 
 
@@ -82,7 +84,7 @@ public enum State {
 
     FIRST_PAYMENT {
         public State doSomething(Message message) {
-            //  firstPayment = command.firstPayment(message);
+            firstPayment = command.firstPayment(message);
             command.sendMessage(message, "Напишите сколько стоит подписка:");
 
             return HOW_MUCH;
@@ -95,7 +97,7 @@ public enum State {
 
             subscribe.setNameService(serviceName);
             subscribe.setBillingPeriod(billingPeriod);
-            subscribe.setFirstPayment("2020-10-21");
+            subscribe.setFirstPayment(firstPayment);
             subscribe.setPrice(command.howMuchIs(message));
             subscribe.setUserId(message.getChatId());
 
@@ -120,9 +122,9 @@ public enum State {
 
     public static String serviceName;
     public static String billingPeriod;
-    //   public static Date firstPayment;
+    public static String firstPayment;
     Command command = new Command();
     PostgresConnection postgresConnection = new PostgresConnection();
-
+    private static Logger log = Logger.getLogger(State.class.getName());
     public abstract State doSomething(Message message);
 }

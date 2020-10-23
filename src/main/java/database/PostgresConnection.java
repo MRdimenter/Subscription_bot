@@ -4,10 +4,10 @@ package database;
 import data.Subscribe;
 import data.User;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.logging.Logger;
 
 public class PostgresConnection {
@@ -112,7 +112,7 @@ public class PostgresConnection {
             preparedStatement = SingletonConnection.getInstance().get().prepareStatement(ADD_SUBSCRIBE);
             preparedStatement.setString(1, subscribe.getNameService());
             preparedStatement.setString(2, subscribe.getBillingPeriod());
-            preparedStatement.setDate(3, new java.sql.Date(new Date().getTime()));
+            preparedStatement.setDate(3, new java.sql.Date(Date.valueOf(subscribe.getFirstPayment()).getTime()));
             preparedStatement.setInt(4, subscribe.getPrice());
             preparedStatement.setLong(5, subscribe.getUserId());
             preparedStatement.executeUpdate();

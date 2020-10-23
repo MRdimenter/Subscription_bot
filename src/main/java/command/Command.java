@@ -10,7 +10,6 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMar
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -63,11 +62,8 @@ public class Command extends Start {
      * Сколько стоит подписка
      */
 
-    public Date firstPayment(Message message) {
-
-        if (message.getText().equals("сегодня"))
-            log.info("Первый платеж:" + message.getText());
-        return new Date();
+    public String firstPayment(Message message) {
+        return message.getText();
     }
 
     public int howMuchIs(Message message) {

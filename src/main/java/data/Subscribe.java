@@ -1,15 +1,14 @@
 package data;
 
-import date.MonthsRus;
+import date.TemporaryManager;
 
 import java.time.LocalDate;
-import java.time.Month;
 
 public class Subscribe {
     private long id;
     private String nameService;
     private String billingPeriod;
-    private String firstPayment;
+    private LocalDate firstPayment;
     private int Price;
     private long userId;
 
@@ -42,20 +41,12 @@ public class Subscribe {
         this.billingPeriod = billingPeriod;
     }
 
-    public String getFirstPayment() {
+    public LocalDate getFirstPayment() {
         return firstPayment;
     }
 
     public void setFirstPayment(String firstPayment) {
-        String[] totime = firstPayment.split(" ");
-
-        for (int i = 1; i <= 12; i++) {
-            if (totime[1].startsWith(MonthsRus.of(i).name().substring(0, 3))) System.out.println(Month.of(i).name());
-            //else System.out.println(MonthsRus.of(i).name());
-        }
-
-        LocalDate localDate = LocalDate.of(LocalDate.now().getYear(), Month.MARCH, 2);
-        this.firstPayment = firstPayment;
+        this.firstPayment = new TemporaryManager().firstPaymentToLocalDate(firstPayment);
     }
 
     public int getPrice() {
@@ -73,10 +64,5 @@ public class Subscribe {
     public void setUserId(long userId) {
         this.userId = userId;
     }
-
-    public static void main(String[] args) {
-        Subscribe subscribe = new Subscribe();
-
-        subscribe.setFirstPayment("29 декабря");
-    }
 }
+
