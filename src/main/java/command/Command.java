@@ -1,7 +1,5 @@
 package command;
 
-import com.vdurmont.emoji.EmojiParser;
-import data.User;
 import main.Keyboard;
 import main.Start;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -21,13 +19,7 @@ public class Command extends Start {
      * Метод для стартового диалога
      */
 
-    public void start(Message message, User user) {
 
-        if (message.getText().equals("/start")) {
-            sendMessage(message, "Добро пожаловать " + user.getFirstNameAndLastName() + EmojiParser.parseToUnicode(":relaxed:") + "\nЯ создан что-бы отслеживать ваши платные подписки " + EmojiParser.parseToUnicode(":euro:") + EmojiParser.parseToUnicode(":euro:") + EmojiParser.parseToUnicode(":euro:"), Keyboard.menu());
-        }
-
-    }
 
 
     /**

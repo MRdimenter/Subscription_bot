@@ -85,6 +85,7 @@ public enum State {
     FIRST_PAYMENT {
         public State doSomething(Message message) {
             firstPayment = command.firstPayment(message);
+
             command.sendMessage(message, "Напишите сколько стоит подписка:");
 
             return HOW_MUCH;

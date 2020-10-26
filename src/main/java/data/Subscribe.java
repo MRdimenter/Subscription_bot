@@ -1,5 +1,6 @@
 package data;
 
+import Pair.Pair;
 import date.TemporaryManager;
 
 import java.time.LocalDate;
@@ -7,10 +8,12 @@ import java.time.LocalDate;
 public class Subscribe {
     private long id;
     private String nameService;
-    private String billingPeriod;
+    private int billingNumber;
+    private String billingDate;
     private LocalDate firstPayment;
     private int Price;
     private long userId;
+    private TemporaryManager temporaryManager = new TemporaryManager();
 
     public Subscribe() {
 
@@ -33,12 +36,12 @@ public class Subscribe {
         this.nameService = nameService;
     }
 
-    public String getBillingPeriod() {
-        return billingPeriod;
-    }
 
+    //с помошью billingPeriod мы получаем billingNumber и billingDate
     public void setBillingPeriod(String billingPeriod) {
-        this.billingPeriod = billingPeriod;
+        Pair<Integer, String> pair = temporaryManager.parseBillingPeriod(billingPeriod);
+        this.billingNumber = pair.getFirst();
+        this.billingDate = pair.getSecond();
     }
 
     public LocalDate getFirstPayment() {
@@ -46,7 +49,7 @@ public class Subscribe {
     }
 
     public void setFirstPayment(String firstPayment) {
-        this.firstPayment = new TemporaryManager().firstPaymentToLocalDate(firstPayment);
+        this.firstPayment = temporaryManager.firstPaymentToLocalDate(firstPayment);
     }
 
     public int getPrice() {
