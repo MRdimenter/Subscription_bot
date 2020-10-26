@@ -1,4 +1,4 @@
-package Pair;
+package pair;
 
 public class Pair<U, V> {
     private U first;

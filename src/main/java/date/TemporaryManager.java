@@ -1,6 +1,6 @@
 package date;
 
-import Pair.Pair;
+import pair.Pair;
 
 import java.time.LocalDate;
 import java.time.Month;
@@ -10,11 +10,15 @@ public class TemporaryManager {
     private static Logger log = Logger.getLogger(TemporaryManager.class.getName());
 
 
-    public Pair parseBillingPeriod(String billing) {
+    public Pair<Integer, String> parseBillingPeriod(String billing) {
         String[] arrayBilling = billing.toLowerCase().split(" ");
+        if (arrayBilling[1].startsWith("мес")) return new Pair(Integer.parseInt(arrayBilling[0]), "month"); //3 месяца
+        if (arrayBilling[1].startsWith("год") || arrayBilling[1].startsWith("лет"))
+            return new Pair(Integer.parseInt(arrayBilling[0]), "year"); //1 год
+        if (arrayBilling[1].startsWith("д")) return new Pair(Integer.parseInt(arrayBilling[0]), "day");
 
-
-        return new Pair(1, "2");
+        log.info("Были неверно введены значения платежного периода");
+        return new Pair<>(null, null);
     }
 
 

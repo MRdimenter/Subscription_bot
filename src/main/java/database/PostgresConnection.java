@@ -84,10 +84,11 @@ public class PostgresConnection {
 
             preparedStatement = SingletonConnection.getInstance().get().prepareStatement(ADD_SUBSCRIBE);
             preparedStatement.setString(1, subscribe.getNameService());
-            preparedStatement.setString(2, subscribe.getBillingPeriod());
-            preparedStatement.setDate(3, new java.sql.Date(Date.valueOf(subscribe.getFirstPayment()).getTime()));
-            preparedStatement.setInt(4, subscribe.getPrice());
-            preparedStatement.setLong(5, subscribe.getUserId());
+            preparedStatement.setInt(2, subscribe.getBillingNumber());
+            preparedStatement.setString(3, subscribe.getBillingDate());
+            preparedStatement.setDate(4, new java.sql.Date(Date.valueOf(subscribe.getFirstPayment()).getTime()));
+            preparedStatement.setInt(5, subscribe.getPrice());
+            preparedStatement.setLong(6, subscribe.getUserId());
             preparedStatement.executeUpdate();
 
 

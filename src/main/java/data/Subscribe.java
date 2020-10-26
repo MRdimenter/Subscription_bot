@@ -1,7 +1,7 @@
 package data;
 
-import Pair.Pair;
 import date.TemporaryManager;
+import pair.Pair;
 
 import java.time.LocalDate;
 
@@ -66,6 +66,14 @@ public class Subscribe {
 
     public void setUserId(long userId) {
         this.userId = userId;
+    }
+
+    public int getBillingNumber() {
+        return billingNumber;
+    }
+
+    public String getBillingDate() {
+        return billingDate;
     }
 }
 
