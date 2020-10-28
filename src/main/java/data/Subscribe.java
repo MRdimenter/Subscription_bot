@@ -37,7 +37,7 @@ public class Subscribe {
     }
 
 
-    //с помошью billingPeriod мы получаем billingNumber и billingDate
+    //C помошью billingPeriod мы получаем billingNumber и billingDate
     public void setBillingPeriod(String billingPeriod) {
         Pair<Integer, String> pair = temporaryManager.parseBillingPeriod(billingPeriod);
         this.billingNumber = pair.getFirst();

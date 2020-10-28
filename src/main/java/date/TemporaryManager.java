@@ -12,9 +12,9 @@ public class TemporaryManager {
 
     public Pair<Integer, String> parseBillingPeriod(String billing) {
         String[] arrayBilling = billing.toLowerCase().split(" ");
-        if (arrayBilling[1].startsWith("мес")) return new Pair(Integer.parseInt(arrayBilling[0]), "month"); //3 месяца
-        if (arrayBilling[1].startsWith("год") || arrayBilling[1].startsWith("лет"))
-            return new Pair(Integer.parseInt(arrayBilling[0]), "year"); //1 год
+        if (arrayBilling[1].startsWith("мес")) return new Pair(Integer.parseInt(arrayBilling[0]), "month"); //Example: 3 месяца
+        if (arrayBilling[1].startsWith("год") || arrayBilling[1].startsWith("лет")) // Example: 1 год
+            return new Pair(Integer.parseInt(arrayBilling[0]), "year"); //5 дней
         if (arrayBilling[1].startsWith("д")) return new Pair(Integer.parseInt(arrayBilling[0]), "day");
 
         log.info("Были неверно введены значения платежного периода");
