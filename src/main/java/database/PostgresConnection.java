@@ -9,6 +9,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
 public class PostgresConnection {
@@ -89,6 +90,35 @@ public class PostgresConnection {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Вывод всех подписок по ID пользователя
+     */
+    public ArrayList<String> getSubscribeById(long id) {
+        try {
+            ArrayList<String> subscribeList = new ArrayList<>();
+            preparedStatement = SingletonConnection.getInstance().get().prepareStatement(SqlRequests.OUT_SUBSCRIBE_BY_IdUser.get());
+            preparedStatement.setLong(1, id);
+            preparedStatement.setLong(2, id);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                subscribeList.add(resultSet.getString("nameService"));
+            }
+            return subscribeList;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+
+    }
+
+    public static void main(String[] args) {
+        PostgresConnection postgresConnection = new PostgresConnection();
+
+        postgresConnection.getSubscribeById(238515772);
     }
 
 
