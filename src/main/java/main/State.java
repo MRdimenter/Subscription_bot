@@ -28,6 +28,11 @@ public enum State {
                 command.subscription(message);
                 //  System.out.println("Doing Something in Menu state and jumping to SUBSCRIBE, argument = " + message.getText());
                 return SUBSCRIPTIONS;
+            }
+
+            if (message.getText().equals(Button.STATISCTICS.get())) {
+                command.getKeyboardSubscription(message, postgresConnection.getSubscribeById(message.getChatId()));
+                return STATISTICS;
             } else return this;
         }
     },
@@ -58,6 +63,22 @@ public enum State {
             }
 
             return this;
+        }
+    },
+
+    /**
+     * Раздел статистика
+     */
+
+    STATISTICS {
+        public State doSomething(Message message) {
+          /*ArrayList<String> line = postgresConnection.getSubscribeById(message.getChatId());
+          for(String sub : line) command.sendMessage(message, sub);
+          command.menu(message, "\\ud83d\\udcb6\\ud83d\\udcb6\\ud83d\\udcb6\\ud83d\\udcb6");*/
+            if (message.getText().equals(Button.BACK.get())) {
+                command.menu(message, "Окей");
+                return MENU;
+            } else return this;
         }
     },
 

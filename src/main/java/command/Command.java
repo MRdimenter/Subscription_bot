@@ -8,16 +8,12 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMar
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
 public class Command extends Start {
     private static Logger log = Logger.getLogger(Command.class.getName()); //логирование
-
-
-    /**
-     * Метод для стартового диалога
-     */
 
 
 
@@ -33,6 +29,10 @@ public class Command extends Start {
         sendMessage(message, "Добавьте или редактируете свои подписочные сервисы", Keyboard.subscribe());
     }
 
+    public void getKeyboardSubscription(Message message, ArrayList<String> subKeyboard) {
+
+        sendMessage(message, "Ваши подписки", Keyboard.keyboardViewSubscribe(subKeyboard));
+    }
 
     public String nameService(Message message) {
         return message.getText();
@@ -108,9 +108,7 @@ public class Command extends Start {
         replyKeyboardMarkup.setResizeKeyboard(true); //адаптивность
         replyKeyboardMarkup.setOneTimeKeyboard(true); //скрытие клавиутары после нажатия
         // Создаем список строк клавиатуры
-
         replyKeyboardMarkup.setKeyboard(keyboardRowList);
-
 
     }
 

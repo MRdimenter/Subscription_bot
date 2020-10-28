@@ -100,14 +100,11 @@ public class PostgresConnection {
             ArrayList<String> subscribeList = new ArrayList<>();
             preparedStatement = SingletonConnection.getInstance().get().prepareStatement(SqlRequests.OUT_SUBSCRIBE_BY_IdUser.get());
             preparedStatement.setLong(1, id);
-            preparedStatement.setLong(2, id);
+
 
             ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                subscribeList.add(resultSet.getString("nameService"));
-            }
+            while (resultSet.next()) subscribeList.add(resultSet.getString("nameService"));
             return subscribeList;
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -115,11 +112,7 @@ public class PostgresConnection {
 
     }
 
-    public static void main(String[] args) {
-        PostgresConnection postgresConnection = new PostgresConnection();
 
-        postgresConnection.getSubscribeById(238515772);
-    }
 
 
 }

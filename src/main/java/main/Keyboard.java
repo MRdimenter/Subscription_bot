@@ -38,5 +38,26 @@ public class Keyboard {
 
     }
 
+    /**
+     *
+     */
+    public static List<KeyboardRow> keyboardViewSubscribe(ArrayList<String> subscribe) {
+        List<KeyboardRow> keyboardRow = new ArrayList<>();
+        KeyboardRow keyboardRowLine;
+
+
+        for (String line : subscribe) {
+            keyboardRowLine = new KeyboardRow();
+            keyboardRowLine.add(line);
+            keyboardRow.add(keyboardRowLine);
+        }
+
+        //Добавление кнопки назад в конец клавиатуры
+        keyboardRowLine = new KeyboardRow();
+        keyboardRowLine.add(Button.BACK.get());
+        keyboardRow.add(keyboardRowLine);
+
+        return keyboardRow;
+    }
 
 }
