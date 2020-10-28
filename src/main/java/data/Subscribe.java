@@ -1,6 +1,6 @@
 package data;
 
-import date.TemporaryManager;
+import command.TemporaryManager;
 import pair.Pair;
 
 import java.time.LocalDate;
