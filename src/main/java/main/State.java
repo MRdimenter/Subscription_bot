@@ -31,7 +31,6 @@ public enum State {
             }
 
             if (message.getText().equals(Button.STATISCTICS.get())) {
-                command.getKeyboardSubscription(message, postgresConnection.getSubscribeById(message.getChatId()));
                 return STATISTICS;
             } else return this;
         }
@@ -41,7 +40,8 @@ public enum State {
      * Раздел "Подписки"
      * 1) Добавить
      * 2) Удалить
-     * 3) Назад
+     * 3) Показать
+     * 4) Назад
      */
     SUBSCRIPTIONS {
         public State doSomething(Message message) {
@@ -55,6 +55,10 @@ public enum State {
                 //  System.out.println("Редактировать");
                 //   command.menu(message, postgresConnection.getUserStateToId(message.getChatId()));
                 return MENU;
+            }
+
+            if (message.getText().equals(Button.SHOW.get())) {
+                command.getKeyboardSubscription(message, postgresConnection.getSubscribeById(message.getChatId()));
             }
 
             if (message.getText().equals(Button.BACK.get())) {

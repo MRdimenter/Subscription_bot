@@ -7,7 +7,9 @@ public enum Button {
     ADD("Добавить"),
     EDIT("Редактировать"),
     BACK("Назад"),
-    DELETE("Удалить");
+    DELETE("Удалить"),
+    SHOW("Показать");
+
 
     private String value;
 

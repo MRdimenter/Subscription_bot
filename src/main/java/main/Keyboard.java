@@ -29,6 +29,7 @@ public class Keyboard {
         KeyboardRow keyboardRowTwo = new KeyboardRow();
         keyboardRowFirst.add(new KeyboardButton(Button.ADD.get()));
         keyboardRowFirst.add(new KeyboardButton(Button.DELETE.get()));
+        keyboardRowFirst.add(new KeyboardButton(Button.SHOW.get()));
         keyboardRowTwo.add(new KeyboardButton(Button.BACK.get()));
 
         keyboardRow.add(keyboardRowFirst);
