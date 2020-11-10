@@ -2,6 +2,7 @@ package database;
 
 
 import ability.SqlRequests;
+import command.StatisticsManager;
 import data.Subscribe;
 import data.User;
 
@@ -109,10 +110,43 @@ public class PostgresConnection {
             e.printStackTrace();
         }
         return null;
-
     }
 
 
+    public ArrayList<Subscribe> getStateSubscribeById(long id) {
+        try {
+            ArrayList<Subscribe> subscribes = new ArrayList<>();
+            Subscribe subscribe;
+            preparedStatement = SingletonConnection.getInstance().get().prepareStatement(SqlRequests.OUT_STATE_SUBSCRIBE_BY_IdUser.get());
+            preparedStatement.setLong(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
 
+            while (resultSet.next()) {
+                subscribe = new Subscribe();
+                subscribe.setNameService(resultSet.getString(1));
+                subscribe.setBillingNumber(resultSet.getInt(2));
+                subscribe.setBillingDate(resultSet.getString(3));
+                subscribe.setFirstPaymentForNormalizeDate(resultSet.getString(4));
+                subscribe.setPrice(resultSet.getInt(5));
+                subscribes.add(subscribe);
+            }
+
+            return subscribes;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+    public static void main(String[] args) {
+        PostgresConnection postgresConnection = new PostgresConnection();
+
+        ArrayList<Subscribe> subscribes = postgresConnection.getStateSubscribeById(238515772);
+        for (Subscribe sub : subscribes) System.out.println(sub.toString());
+
+        System.out.println(new StatisticsManager().calculate(subscribes));
+    }
 
 }

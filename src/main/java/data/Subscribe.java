@@ -52,6 +52,15 @@ public class Subscribe {
         this.firstPayment = temporaryManager.firstPaymentToLocalDate(firstPayment);
     }
 
+    public void setFirstPaymentForNormalizeDate(String firstPayment) {
+        String[] data = firstPayment.split("-");
+        this.firstPayment = LocalDate.of(Integer.parseInt(data[0]), Integer.parseInt(data[1]), Integer.parseInt(data[2]));
+    }
+
+    public void setBillingNumber(int billingNumber) {
+        this.billingNumber = billingNumber;
+    }
+
     public int getPrice() {
         return Price;
     }
@@ -74,6 +83,24 @@ public class Subscribe {
 
     public String getBillingDate() {
         return billingDate;
+    }
+
+    public void setBillingDate(String billingDate) {
+        this.billingDate = billingDate;
+    }
+
+    @Override
+    public String toString() {
+        return "Subscribe{" +
+                "id=" + id +
+                ", nameService='" + nameService + '\'' +
+                ", billingNumber=" + billingNumber +
+                ", billingDate='" + billingDate + '\'' +
+                ", firstPayment=" + firstPayment +
+                ", Price=" + Price +
+                ", userId=" + userId +
+                ", temporaryManager=" + temporaryManager +
+                '}';
     }
 }
 
