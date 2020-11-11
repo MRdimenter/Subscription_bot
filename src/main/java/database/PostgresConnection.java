@@ -146,7 +146,7 @@ public class PostgresConnection {
         ArrayList<Subscribe> subscribes = postgresConnection.getStateSubscribeById(238515772);
         for (Subscribe sub : subscribes) System.out.println(sub.toString());
 
-        System.out.println(new StatisticsManager().calculate(subscribes));
+        System.out.println(new StatisticsManager().MonthlyStatisticsCalculator(subscribes).getTotal());
     }
 
 }
