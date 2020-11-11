@@ -1,6 +1,7 @@
 package command;
 
 import data.Subscribe;
+import data.SubscribeState;
 import main.Keyboard;
 import main.Start;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -18,8 +19,6 @@ public class Command extends Start {
     private static Logger log = Logger.getLogger(Command.class.getName()); //логирование
 
 
-
-
     /**
      * Метод для вывода главного меню
      */
@@ -29,6 +28,10 @@ public class Command extends Start {
 
     public void subscription(Message message) {
         sendMessage(message, "Добавьте или редактируете свои подписочные сервисы", Keyboard.subscribe());
+    }
+
+    public void statistics(Message message) {
+        sendMessage(message, "Выбор статистики", Keyboard.statistics());
     }
 
     public void getKeyboardSubscription(Message message, ArrayList<String> subKeyboard) {
@@ -72,10 +75,13 @@ public class Command extends Start {
 
     public void MonthlyStatisticsOutput(Message message, ArrayList<Subscribe> subscribes) {
         StatisticsManager statisticsManager = new StatisticsManager();
-        Map<String, Double> state = statisticsManager.MonthlyStatisticsCalculator(subscribes).getSubscribeState();
+        SubscribeState subscribeState = statisticsManager.MonthlyStatisticsCalculator(subscribes);
+        Map<String, Double> state = subscribeState.getSubscribeState();
         sendMessage(message, "--- Ваша статистика за месяц ---");
         for (Map.Entry<String, Double> item : state.entrySet())
             sendMessage(message, item.getKey() + " : " + item.getValue().toString());
+
+        sendMessage(message, "Всего: " + subscribeState.getTotal(), Keyboard.menu());
 
     }
 

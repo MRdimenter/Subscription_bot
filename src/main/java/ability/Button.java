@@ -8,7 +8,11 @@ public enum Button {
     EDIT("Редактировать"),
     BACK("Назад"),
     DELETE("Удалить"),
-    SHOW("Показать");
+    SHOW("Показать"),
+    PER_DAY("За день"),
+    PER_MONTH("За месяц"),
+    PER_YEAR("За год"),
+    GENERAL("Общая");
 
 
     private String value;

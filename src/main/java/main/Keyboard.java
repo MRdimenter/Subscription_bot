@@ -39,6 +39,24 @@ public class Keyboard {
 
     }
 
+    public static List<KeyboardRow> statistics() {
+        List<KeyboardRow> keyboardRow = new ArrayList<>();
+        KeyboardRow keyboardRowFirst = new KeyboardRow();
+        KeyboardRow keyboardRowTwo = new KeyboardRow();
+        keyboardRowFirst.add(new KeyboardButton(Button.PER_DAY.get()));
+        keyboardRowFirst.add(new KeyboardButton(Button.PER_MONTH.get()));
+        keyboardRowFirst.add(new KeyboardButton(Button.PER_YEAR.get()));
+        keyboardRowTwo.add(new KeyboardButton(Button.GENERAL.get()));
+        keyboardRowTwo.add(new KeyboardButton(Button.BACK.get()));
+
+
+        keyboardRow.add(keyboardRowFirst);
+        keyboardRow.add(keyboardRowTwo);
+
+        return keyboardRow;
+
+    }
+
     /**
      *
      */

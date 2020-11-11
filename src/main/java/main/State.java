@@ -32,8 +32,8 @@ public enum State {
             }
 
             if (message.getText().equals(Button.STATISCTICS.get())) {
-                ArrayList<Subscribe> subscribes = postgresConnection.getStateSubscribeById(message.getChatId());
-                command.MonthlyStatisticsOutput(message, subscribes);
+                command.statistics(message);
+
                 return STATISTICS;
             } else return this;
         }
@@ -79,9 +79,13 @@ public enum State {
 
     STATISTICS {
         public State doSomething(Message message) {
-          /*ArrayList<String> line = postgresConnection.getSubscribeById(message.getChatId());
-          for(String sub : line) command.sendMessage(message, sub);
-          command.menu(message, "\\ud83d\\udcb6\\ud83d\\udcb6\\ud83d\\udcb6\\ud83d\\udcb6");*/
+
+            if (message.getText().equals(Button.PER_MONTH.get())) {
+                ArrayList<Subscribe> subscribes = postgresConnection.getStateSubscribeById(message.getChatId());
+                command.MonthlyStatisticsOutput(message, subscribes);
+                return MENU;
+            }
+
             if (message.getText().equals(Button.BACK.get())) {
                 command.menu(message, "Окей");
                 return MENU;
