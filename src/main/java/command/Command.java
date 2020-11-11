@@ -1,5 +1,6 @@
 package command;
 
+import data.Subscribe;
 import main.Keyboard;
 import main.Start;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -10,6 +11,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 public class Command extends Start {
@@ -61,6 +63,20 @@ public class Command extends Start {
     public int howMuchIs(Message message) {
         log.info("Сколько стоит подписка:" + message.getText());
         return Integer.parseInt(message.getText());
+    }
+
+
+    /**
+     * Метод для получения статистики за месяц
+     */
+
+    public void MonthlyStatisticsOutput(Message message, ArrayList<Subscribe> subscribes) {
+        StatisticsManager statisticsManager = new StatisticsManager();
+        Map<String, Double> state = statisticsManager.MonthlyStatisticsCalculator(subscribes).getSubscribeState();
+        sendMessage(message, "--- Ваша статистика за месяц ---");
+        for (Map.Entry<String, Double> item : state.entrySet())
+            sendMessage(message, item.getKey() + " : " + item.getValue().toString());
+
     }
 
 

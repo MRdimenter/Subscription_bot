@@ -6,6 +6,7 @@ import data.Subscribe;
 import database.PostgresConnection;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
 public enum State {
@@ -31,6 +32,8 @@ public enum State {
             }
 
             if (message.getText().equals(Button.STATISCTICS.get())) {
+                ArrayList<Subscribe> subscribes = postgresConnection.getStateSubscribeById(message.getChatId());
+                command.MonthlyStatisticsOutput(message, subscribes);
                 return STATISTICS;
             } else return this;
         }
