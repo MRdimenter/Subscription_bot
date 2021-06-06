@@ -22,7 +22,7 @@ public class CompileUsers {
     public void compile(Message message) {
         for (User user : users) {
             if (message.getChatId() == user.getId()) user.updateState(message);
-        }
+    }
 
     }
 

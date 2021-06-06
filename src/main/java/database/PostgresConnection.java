@@ -2,7 +2,6 @@ package database;
 
 
 import ability.SqlRequests;
-import command.StatisticsManager;
 import data.Subscribe;
 import data.User;
 
@@ -38,10 +37,6 @@ public class PostgresConnection {
 
 
     }
-
-
-
-
 
 
     //SELECT EXISTS(SELECT id FROM userpeople WHERE id = ?)
@@ -143,10 +138,72 @@ public class PostgresConnection {
     public static void main(String[] args) {
         PostgresConnection postgresConnection = new PostgresConnection();
 
-        ArrayList<Subscribe> subscribes = postgresConnection.getStateSubscribeById(238515772);
-        for (Subscribe sub : subscribes) System.out.println(sub.toString());
+        // ArrayList<Subscribe> subscribes = postgresConnection.getStateSubscribeById(238515772);
+        //for (Subscribe sub : subscribes) System.out.println(sub.toString());
 
-        System.out.println(new StatisticsManager().MonthlyStatisticsCalculator(subscribes).getTotal());
+        // System.out.println(new StatisticsManager().MonthlyStatisticsCalculator(subscribes).getTotal());
+
+        System.out.println(postgresConnection.getStateUserById(123456));
+
+        postgresConnection.setStateUserById(2, "NEOK");
+        System.out.println(postgresConnection.getStateUserById(2));
     }
 
+
+    /**
+     * Вывод статуса из БД
+     */
+
+    public String getStateUserById(long id) {
+        try {
+            String state = "";
+            preparedStatement = SingletonConnection.getInstance().get().prepareStatement(SqlRequests.OUT_STATUS.get());
+            preparedStatement.setLong(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                state = resultSet.getString(1);
+            }
+
+            return state;
+
+        } catch (SQLException e) {
+            System.out.println("Ошибка");
+        }
+        return null;
+    }
+
+    /**
+     * Обновление статуса в Бд
+     */
+
+    public void updateStateUserById(long id, String state) {
+        try {
+            preparedStatement = SingletonConnection.getInstance().get().prepareStatement(SqlRequests.UPDATE_STATUS.get());
+            preparedStatement.setString(1, state);
+            preparedStatement.setLong(2, id);
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            log.severe("Ошибка PostgresConnection");
+        }
+    }
+
+    /**
+     * Ввод статуса в БД
+     */
+
+    public void setStateUserById(long id, String state) {
+        try {
+            preparedStatement = SingletonConnection.getInstance().get().prepareStatement(SqlRequests.SET_STATUS.get());
+            preparedStatement.setLong(1, id);
+            preparedStatement.setString(2, state);
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            log.severe("Ошибка PostgresConnection");
+        }
+
+    }
 }
+

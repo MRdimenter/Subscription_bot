@@ -1,5 +1,6 @@
 package command;
 
+import ability.Icon;
 import data.Subscribe;
 import data.SubscribeState;
 import main.Keyboard;
@@ -17,7 +18,7 @@ import java.util.logging.Logger;
 
 public class Command extends Start {
     private static Logger log = Logger.getLogger(Command.class.getName()); //логирование
-
+    private StatisticsManager statisticsManager = new StatisticsManager();
 
     /**
      * Метод для вывода главного меню
@@ -74,14 +75,73 @@ public class Command extends Start {
      */
 
     public void MonthlyStatisticsOutput(Message message, ArrayList<Subscribe> subscribes) {
-        StatisticsManager statisticsManager = new StatisticsManager();
+        StringBuilder text = new StringBuilder("Статистика за месяц " + Icon.STATIC.get() + "\n\n");
         SubscribeState subscribeState = statisticsManager.MonthlyStatisticsCalculator(subscribes);
         Map<String, Double> state = subscribeState.getSubscribeState();
-        sendMessage(message, "--- Ваша статистика за месяц ---");
-        for (Map.Entry<String, Double> item : state.entrySet())
-            sendMessage(message, item.getKey() + " : " + item.getValue().toString());
+        for (Map.Entry<String, Double> item : state.entrySet()) {
+            text.append(item.getKey()).append(" : ").append(textBold(String.format("%.1f", item.getValue()))).append("\n");
 
-        sendMessage(message, "Всего: " + subscribeState.getTotal(), Keyboard.menu());
+        }
+        text.append("\n*Всего: ").append(String.format("%.1f", subscribeState.getTotal())).append("*");
+        sendMessage(message, text.toString(), Keyboard.menu());
+
+    }
+
+    /**
+     * Метод для получения статистики за год
+     */
+
+    public void YearStatisticsOutput(Message message, ArrayList<Subscribe> subscribes) {
+        StringBuilder text = new StringBuilder("Статистика за год " + Icon.STATIC.get() + "\n\n");
+        SubscribeState subscribeState = statisticsManager.YearStatisticsCalculator(subscribes);
+        Map<String, Double> state = subscribeState.getSubscribeState();
+        for (Map.Entry<String, Double> item : state.entrySet()) {
+            text.append(item.getKey()).append(" : ").append(textBold(String.format("%.1f", item.getValue()))).append("\n");
+
+        }
+        text.append("\n*Всего: ").append(String.format("%.1f", subscribeState.getTotal())).append("*");
+        sendMessage(message, text.toString(), Keyboard.menu());
+    }
+
+    /**
+     * Метод для получения статистики за день
+     */
+
+    public void DayStatisticsOutput(Message message, ArrayList<Subscribe> subscribes) {
+        StringBuilder text = new StringBuilder("Статистика за день " + Icon.STATIC.get() + "\n\n");
+        SubscribeState subscribeState = statisticsManager.DayStatisticsCalculator(subscribes);
+        Map<String, Double> state = subscribeState.getSubscribeState();
+        for (Map.Entry<String, Double> item : state.entrySet()) {
+            text.append(item.getKey()).append(" : ").append(textBold(String.format("%.1f", item.getValue()))).append("\n");
+
+        }
+        text.append("\n*Всего: ").append(String.format("%.1f", subscribeState.getTotal())).append("*");
+        sendMessage(message, text.toString(), Keyboard.menu());
+    }
+
+    /**
+     * Метод для получения общей статистики
+     */
+
+    public void AllStatisticsOutput(Message message, ArrayList<Subscribe> subscribes) {
+        StatisticsManager statisticsManager = new StatisticsManager();
+        ArrayList<SubscribeState> subscribeStates = new ArrayList<>();
+
+        subscribeStates.add(statisticsManager.YearStatisticsCalculator(subscribes)); /** за год  */
+        subscribeStates.add(statisticsManager.MonthlyStatisticsCalculator(subscribes)); /** за месяц  */
+        subscribeStates.add(statisticsManager.DayStatisticsCalculator(subscribes)); /** за день  */
+
+        sendMessage(message, "--- Общая статистика ---");
+        for (SubscribeState st : subscribeStates) {
+            Map<String, Double> state = st.getSubscribeState();
+            for (Map.Entry<String, Double> item : state.entrySet()) {
+                sendMessage(message, item.getKey() + " : " + item.getValue().toString());
+                sendMessage(message, "Всего: " + st.getTotal(), Keyboard.menu());
+            }
+
+
+        }
+
 
     }
 
@@ -134,5 +194,12 @@ public class Command extends Start {
 
     }
 
+    /**
+     * Метод для жирного текста
+     */
+
+    private String textBold(String text) {
+        return "*" + text + "*";
+    }
 
 }

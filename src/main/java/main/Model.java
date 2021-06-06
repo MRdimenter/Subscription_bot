@@ -2,6 +2,7 @@ package main;
 
 
 import data.User;
+import database.PostgresConnection;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
@@ -15,7 +16,7 @@ public class Model {
     private static Logger log = Logger.getLogger(Model.class.getName()); //логирование
     State state;
     CompileUsers compileUsers;
-
+    PostgresConnection postgresConnection = new PostgresConnection();
     public Model() {
         state = State.MENU;
         compileUsers = new CompileUsers();
@@ -28,7 +29,7 @@ public class Model {
     public void start(Update update) {
         log.info("--- Main.Start model ---");
         System.out.println("СООБЩЕНИЕ МОДЕЛИ --------------->" + update.getMessage().getText());
-        if (update.getMessage().getText().equals("/start"))
+        if (update.getMessage().getText().equals("/start") || !postgresConnection.getStateUserById(update.getMessage().getChatId()).equals(""))
             compileUsers.add(new User(update.getMessage()), update.getMessage());
         compileUsers.compile(update.getMessage());
         // updateState(update.getMessage());

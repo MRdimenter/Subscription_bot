@@ -5,9 +5,10 @@ public enum SqlRequests {
     IS_USER("SELECT EXISTS(SELECT id FROM userpeople WHERE id = ?)"),
     ADD_SUBSCRIBE("insert into subscribe (nameService, billingNumber, billingDate, firstPayment, price, idUser) VALUES ( ?, ?, ?,? ,?,?)"),
     OUT_SUBSCRIBE_BY_IdUser("select nameService from subscribe where idUser = ?"),
-    OUT_STATE_SUBSCRIBE_BY_IdUser("select nameService, billingNumber, billingDate, firstPayment, price from subscribe where idUser = ?");
-
-
+    OUT_STATE_SUBSCRIBE_BY_IdUser("select nameService, billingNumber, billingDate, firstPayment, price from subscribe where idUser = ?"),
+    UPDATE_STATUS("update status set state = ? where iduser = ?"),
+    OUT_STATUS("select state from status where idUser = ?"),
+    SET_STATUS("insert into status (iduser, state) VALUES (?, ?)");
     private String value;
 
     SqlRequests(String value) {

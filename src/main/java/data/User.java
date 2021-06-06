@@ -24,7 +24,15 @@ public class User extends Start {
         firstName = message.getFrom().getFirstName();
         lastName = message.getFrom().getLastName();
         userName = message.getFrom().getUserName();
-        state = State.MENU;
+        /**
+         * Проверка на статус при отключении
+         */
+        String status = postgresConnection.getStateUserById(message.getChatId());
+        if (status.equals("")) {
+            postgresConnection.setStateUserById(message.getChatId(), "MENU");
+            state = State.MENU;
+        } else state = State.valueOf(postgresConnection.getStateUserById(message.getChatId()));
+
     }
 
     public User(Long id) {

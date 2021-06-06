@@ -20,6 +20,8 @@ public enum State {
      */
     MENU {
         public State doSomething(Message message) {
+
+
             if (message.getText().equals("/start")) {
                 command.menu(message, "Добро пожаловать! Теперь вы можете отслеживать ваши платные подписки в любое время :)");
                 postgresConnection.setUserToDatabase(message.getChatId(), message.getFrom().getFirstName(), message.getFrom().getLastName(), message.getFrom().getUserName());
@@ -28,10 +30,12 @@ public enum State {
             if (message.getText().equals(Button.SUBSCRIPTION.get())) {
                 command.subscription(message);
                 //  System.out.println("Doing Something in Menu state and jumping to SUBSCRIBE, argument = " + message.getText());
+                postgresConnection.updateStateUserById(message.getChatId(), "SUBSCRIPTIONS");
                 return SUBSCRIPTIONS;
             }
 
             if (message.getText().equals(Button.STATISCTICS.get())) {
+                postgresConnection.updateStateUserById(message.getChatId(), "STATISTICS");
                 command.statistics(message);
 
                 return STATISTICS;
@@ -48,15 +52,21 @@ public enum State {
      */
     SUBSCRIPTIONS {
         public State doSomething(Message message) {
+
+
             if (message.getText().equals(Button.ADD.get())) {//если клиент нажал кнопку добавить
                 // System.out.println("Doing Something in ADDING state and jumping to  INPUT_SERVIE, argument = " + message.getText());
                 command.sendMessage(message, "Напишите имя сервиса:");
+                postgresConnection.updateStateUserById(message.getChatId(), "INPUT_SERVIE");
+
                 return INPUT_SERVIE;
             }
 
             if (message.getText().equals(Button.DELETE.get())) {
                 //  System.out.println("Редактировать");
                 //   command.menu(message, postgresConnection.getUserStateToId(message.getChatId()));
+                postgresConnection.updateStateUserById(message.getChatId(), "MENU");
+
                 return MENU;
             }
 
@@ -66,6 +76,8 @@ public enum State {
 
             if (message.getText().equals(Button.BACK.get())) {
                 command.menu(message, "Окей");
+                postgresConnection.updateStateUserById(message.getChatId(), "MENU");
+
                 return MENU;
             }
 
@@ -80,14 +92,43 @@ public enum State {
     STATISTICS {
         public State doSomething(Message message) {
 
+
             if (message.getText().equals(Button.PER_MONTH.get())) {
                 ArrayList<Subscribe> subscribes = postgresConnection.getStateSubscribeById(message.getChatId());
                 command.MonthlyStatisticsOutput(message, subscribes);
+                postgresConnection.updateStateUserById(message.getChatId(), "MENU");
+
+                return MENU;
+            }
+
+            if (message.getText().equals(Button.PER_YEAR.get())) {
+                ArrayList<Subscribe> subscribes = postgresConnection.getStateSubscribeById(message.getChatId());
+                command.YearStatisticsOutput(message, subscribes);
+                postgresConnection.updateStateUserById(message.getChatId(), "MENU");
+
+                return MENU;
+            }
+
+            if (message.getText().equals(Button.PER_DAY.get())) {
+                ArrayList<Subscribe> subscribes = postgresConnection.getStateSubscribeById(message.getChatId());
+                command.DayStatisticsOutput(message, subscribes);
+                postgresConnection.updateStateUserById(message.getChatId(), "MENU");
+
+                return MENU;
+            }
+
+            if (message.getText().equals(Button.GENERAL.get())) {
+                ArrayList<Subscribe> subscribes = postgresConnection.getStateSubscribeById(message.getChatId());
+                command.AllStatisticsOutput(message, subscribes);
+                postgresConnection.updateStateUserById(message.getChatId(), "MENU");
+
                 return MENU;
             }
 
             if (message.getText().equals(Button.BACK.get())) {
                 command.menu(message, "Окей");
+                postgresConnection.updateStateUserById(message.getChatId(), "MENU");
+
                 return MENU;
             } else return this;
         }
@@ -95,19 +136,27 @@ public enum State {
 
     INPUT_SERVIE {
         public State doSomething(Message message) {
+
+
             //  System.out.println("Doing Something in INPUT_SERVIE state and jumping to INPUT_BILLING, argument = " + message.getText());
             serviceName = command.nameService(message);
 
             command.sendMessage(message, "Напишите расчётный период\nНапример: 1 месяц, 3 месяца, 1 год");
+            postgresConnection.updateStateUserById(message.getChatId(), "INPUT_BILLING");
+
             return INPUT_BILLING;
         }
     },
 
     INPUT_BILLING {
         public State doSomething(Message message) {
+
+
             //  System.out.println("Doing Something in INPUT_BILLING state and jumping to  MENU, argument = " + message.getText());
             billingPeriod = command.billingPeriod(message);
             command.sendMessage(message, "Напишите первый платеж:\nНапример:\nСегодня\n29 ионя\n31 (актуальный месяц)");
+
+            postgresConnection.updateStateUserById(message.getChatId(), "FIRST_PAYMENT");
 
             return FIRST_PAYMENT;
         }
@@ -116,9 +165,13 @@ public enum State {
 
     FIRST_PAYMENT {
         public State doSomething(Message message) {
+
+
             firstPayment = command.firstPayment(message);
 
             command.sendMessage(message, "Напишите сколько стоит подписка:");
+
+            postgresConnection.updateStateUserById(message.getChatId(), "HOW_MUCH");
 
             return HOW_MUCH;
         }
@@ -126,6 +179,8 @@ public enum State {
 
     HOW_MUCH {
         public State doSomething(Message message) {
+
+
             Subscribe subscribe = new Subscribe();
 
             subscribe.setNameService(serviceName);
@@ -136,6 +191,7 @@ public enum State {
 
             postgresConnection.addSubscribe(subscribe);
             command.menu(message, "Подписка добавлена");
+            postgresConnection.updateStateUserById(message.getChatId(), "MENU");
 
             return MENU;
         }
@@ -159,5 +215,6 @@ public enum State {
     Command command = new Command();
     PostgresConnection postgresConnection = new PostgresConnection();
     private static Logger log = Logger.getLogger(State.class.getName());
+
     public abstract State doSomething(Message message);
 }
