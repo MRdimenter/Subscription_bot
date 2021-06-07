@@ -15,6 +15,16 @@ public class Subscribe {
     private long userId;
     private TemporaryManager temporaryManager = new TemporaryManager();
 
+    public int getWrong() {
+        return wrong;
+    }
+
+    public void setWrong(int wrong) {
+        this.wrong = wrong;
+    }
+
+    private int wrong = 0;
+
     public Subscribe() {
 
     }
@@ -50,6 +60,8 @@ public class Subscribe {
 
     public void setFirstPayment(String firstPayment) {
         this.firstPayment = temporaryManager.firstPaymentToLocalDate(firstPayment);
+        if (this.firstPayment == null || this.firstPayment.equals("")) wrong++;
+        System.out.println(wrong);
     }
 
     public void setFirstPaymentForNormalizeDate(String firstPayment) {

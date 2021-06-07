@@ -5,6 +5,7 @@ import pair.Pair;
 
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.Objects;
 import java.util.logging.Logger;
 
 public class TemporaryManager {
@@ -28,18 +29,20 @@ public class TemporaryManager {
      */
 
     public LocalDate firstPaymentToLocalDate(String first) {
+
         String[] date = first.toLowerCase().split(" ");
         if (checkingTodayInMessage(date[0])) {
             return LocalDate.now();
         }
 
-        Month month = getMonthFromRusMonths(date[1]);
+        if (date.length == 1 && checkingNumbersInMonth(Integer.parseInt(date[0])))
+            return LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), Integer.parseInt(date[0]));
+        if (date.length == 2 && checkingNumbersInMonth(Integer.parseInt(date[0])))
+            return LocalDate.of(LocalDate.now().getYear(), Objects.requireNonNull(getMonthFromRusMonths(date[1])), Integer.parseInt(date[0]));
 
 
-        if (checkingNumbersInMonth(Integer.parseInt(date[0])) && !(month == null))
-            return LocalDate.of(LocalDate.now().getYear(), month, Integer.parseInt(date[0]));
-        log.info("Были неверно введены значения первого платежа");
-        return null;
+        else return null;
+
 
     }
 

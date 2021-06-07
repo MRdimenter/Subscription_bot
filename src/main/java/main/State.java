@@ -216,12 +216,19 @@ public enum State {
 
 
             Subscribe subscribe = new Subscribe();
-
+            System.out.println("1");
             subscribe.setNameService(serviceName);
+            System.out.println("2");
             subscribe.setBillingPeriod(billingPeriod);
+            System.out.println("3");
+
             subscribe.setFirstPayment(firstPayment);
+            if (subscribe.getWrong() > 0) System.out.println("ОШИБКА");
+            System.out.println("4");
             subscribe.setPrice(command.howMuchIs(message));
+            System.out.println("5");
             subscribe.setUserId(message.getChatId());
+
 
             postgresConnection.addSubscribe(subscribe);
             command.menu(message, "Подписка добавлена");
