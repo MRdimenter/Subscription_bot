@@ -106,33 +106,33 @@ public enum State {
             if (message.getText().equals(Button.PER_MONTH.get())) {
                 ArrayList<Subscribe> subscribes = postgresConnection.getStateSubscribeById(message.getChatId());
                 command.MonthlyStatisticsOutput(message, subscribes);
-                postgresConnection.updateStateUserById(message.getChatId(), "MENU");
+                postgresConnection.updateStateUserById(message.getChatId(), "STATISTICS");
 
-                return MENU;
+                return STATISTICS;
             }
 
             if (message.getText().equals(Button.PER_YEAR.get())) {
                 ArrayList<Subscribe> subscribes = postgresConnection.getStateSubscribeById(message.getChatId());
                 command.YearStatisticsOutput(message, subscribes);
-                postgresConnection.updateStateUserById(message.getChatId(), "MENU");
+                postgresConnection.updateStateUserById(message.getChatId(), "STATISTICS");
 
-                return MENU;
+                return STATISTICS;
             }
 
             if (message.getText().equals(Button.PER_DAY.get())) {
                 ArrayList<Subscribe> subscribes = postgresConnection.getStateSubscribeById(message.getChatId());
                 command.DayStatisticsOutput(message, subscribes);
-                postgresConnection.updateStateUserById(message.getChatId(), "MENU");
+                postgresConnection.updateStateUserById(message.getChatId(), "STATISTICS");
 
-                return MENU;
+                return STATISTICS;
             }
 
             if (message.getText().equals(Button.GENERAL.get())) {
                 ArrayList<Subscribe> subscribes = postgresConnection.getStateSubscribeById(message.getChatId());
                 command.AllStatisticsOutput(message, subscribes);
-                postgresConnection.updateStateUserById(message.getChatId(), "MENU");
+                postgresConnection.updateStateUserById(message.getChatId(), "STATISTICS");
 
-                return MENU;
+                return STATISTICS;
             }
 
             if (message.getText().equals(Button.BACK.get())) {

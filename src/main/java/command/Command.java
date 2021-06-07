@@ -100,7 +100,7 @@ public class Command extends Start {
 
         }
         text.append("\n*Всего: ").append(String.format("%.1f", subscribeState.getTotal())).append("*");
-        sendMessage(message, text.toString(), Keyboard.menu());
+        sendMessage(message, text.toString(), Keyboard.statistics());
 
     }
 
@@ -117,7 +117,7 @@ public class Command extends Start {
 
         }
         text.append("\n*Всего: ").append(String.format("%.1f", subscribeState.getTotal())).append("*");
-        sendMessage(message, text.toString(), Keyboard.menu());
+        sendMessage(message, text.toString(), Keyboard.statistics());
     }
 
     /**
@@ -133,7 +133,7 @@ public class Command extends Start {
 
         }
         text.append("\n*Всего: ").append(String.format("%.1f", subscribeState.getTotal())).append("*");
-        sendMessage(message, text.toString(), Keyboard.menu());
+        sendMessage(message, text.toString(), Keyboard.statistics());
     }
 
     /**
@@ -149,7 +149,7 @@ public class Command extends Start {
         subscribeStates.add(statisticsManager.DayStatisticsCalculator(subscribes)); /** за день  */
 
         int inc = 0;
-        String text = "";
+        StringBuilder text = new StringBuilder();
         for (SubscribeState st : subscribeStates) {
             Map<String, Double> state = st.getSubscribeState();
             if (inc == 0) sendMessage(message, textBold("Статистика за год:"));
@@ -157,12 +157,12 @@ public class Command extends Start {
             if (inc == 2) sendMessage(message, textBold("Статистика за день:"));
             inc++;
             for (Map.Entry<String, Double> item : state.entrySet()) {
-                text += item.getKey() + " : " + item.getValue().toString() + "\n";
+                text.append(item.getKey()).append(" : ").append(String.format("%.1f", item.getValue()).toString()).append("\n");
 
 
             }
             sendMessage(message, text + "\n" + "Всего: " + st.getTotal());
-            text = "";
+            text = new StringBuilder();
 
         }
 
