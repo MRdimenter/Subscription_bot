@@ -12,8 +12,8 @@ public enum Button {
     PER_DAY("За день"),
     PER_MONTH("За месяц"),
     PER_YEAR("За год"),
-    GENERAL("Общая");
-
+    GENERAL("Общая"),
+    HELP("Помощь");
 
     private String value;
 

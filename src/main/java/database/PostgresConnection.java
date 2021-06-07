@@ -205,5 +205,23 @@ public class PostgresConnection {
         }
 
     }
+
+
+    /**
+     * Удаление подписки у пользователя
+     */
+
+    public void deleteSubscribeByName(String nameservice) {
+        try {
+            preparedStatement = SingletonConnection.getInstance().get().prepareStatement(SqlRequests.DELETE_SUBSCRIBE.get());
+            preparedStatement.setString(1, nameservice);
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+    }
 }
 

@@ -79,4 +79,16 @@ public class Keyboard {
         return keyboardRow;
     }
 
+
+    public static List<KeyboardRow> settings() {
+        List<KeyboardRow> keyboardRow = new ArrayList<>();
+
+        KeyboardRow keyboardRowFirst = new KeyboardRow();
+        keyboardRowFirst.add(new KeyboardButton(Button.HELP.get()));
+        keyboardRowFirst.add(new KeyboardButton(Button.BACK.get()));
+        keyboardRow.add(keyboardRowFirst);
+
+        return keyboardRow;
+
+    }
 }

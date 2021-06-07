@@ -31,6 +31,12 @@ public class Command extends Start {
         sendMessage(message, "Добавьте или редактируете свои подписочные сервисы", Keyboard.subscribe());
     }
 
+
+    public void subscriptionMessage(Message message, String text) {
+        sendMessage(message, text, Keyboard.subscribe());
+    }
+
+
     public void statistics(Message message) {
         sendMessage(message, "Выбор статистики", Keyboard.statistics());
     }
@@ -39,6 +45,17 @@ public class Command extends Start {
 
         sendMessage(message, "Ваши подписки", Keyboard.keyboardViewSubscribe(subKeyboard));
     }
+
+
+    /**
+     *
+     */
+
+
+    public void getKeyboardSettings(Message message) {
+        sendMessage(message, "Настройка бота! Бета-тест не предусматривает настройку бота. В будущем будет доступна интеграция с сервисом Notion.", Keyboard.settings());
+    }
+
 
     public String nameService(Message message) {
         return message.getText();
@@ -131,14 +148,21 @@ public class Command extends Start {
         subscribeStates.add(statisticsManager.MonthlyStatisticsCalculator(subscribes)); /** за месяц  */
         subscribeStates.add(statisticsManager.DayStatisticsCalculator(subscribes)); /** за день  */
 
-        sendMessage(message, "--- Общая статистика ---");
+        int inc = 0;
+        String text = "";
         for (SubscribeState st : subscribeStates) {
             Map<String, Double> state = st.getSubscribeState();
+            if (inc == 0) sendMessage(message, textBold("Статистика за год:"));
+            if (inc == 1) sendMessage(message, textBold("Статистика за месяц:"));
+            if (inc == 2) sendMessage(message, textBold("Статистика за день:"));
+            inc++;
             for (Map.Entry<String, Double> item : state.entrySet()) {
-                sendMessage(message, item.getKey() + " : " + item.getValue().toString());
-                sendMessage(message, "Всего: " + st.getTotal(), Keyboard.menu());
-            }
+                text += item.getKey() + " : " + item.getValue().toString() + "\n";
 
+
+            }
+            sendMessage(message, text + "\n" + "Всего: " + st.getTotal());
+            text = "";
 
         }
 

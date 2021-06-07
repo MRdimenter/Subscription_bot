@@ -8,7 +8,8 @@ public enum SqlRequests {
     OUT_STATE_SUBSCRIBE_BY_IdUser("select nameService, billingNumber, billingDate, firstPayment, price from subscribe where idUser = ?"),
     UPDATE_STATUS("update status set state = ? where iduser = ?"),
     OUT_STATUS("select state from status where idUser = ?"),
-    SET_STATUS("insert into status (iduser, state) VALUES (?, ?)");
+    SET_STATUS("insert into status (iduser, state) VALUES (?, ?)"),
+    DELETE_SUBSCRIBE("DELETE FROM subscribe WHERE nameservice = ?");
     private String value;
 
     SqlRequests(String value) {

@@ -34,6 +34,13 @@ public enum State {
                 return SUBSCRIPTIONS;
             }
 
+            if (message.getText().equals(Button.SETTINGS.get())) {
+                command.getKeyboardSettings(message);
+                //  System.out.println("Doing Something in Menu state and jumping to SUBSCRIBE, argument = " + message.getText());
+                postgresConnection.updateStateUserById(message.getChatId(), "SETTINGS");
+                return SETTINGS;
+            }
+
             if (message.getText().equals(Button.STATISCTICS.get())) {
                 postgresConnection.updateStateUserById(message.getChatId(), "STATISTICS");
                 command.statistics(message);
@@ -62,12 +69,15 @@ public enum State {
                 return INPUT_SERVIE;
             }
 
+            /**
+             Удаление подписки
+             */
             if (message.getText().equals(Button.DELETE.get())) {
                 //  System.out.println("Редактировать");
                 //   command.menu(message, postgresConnection.getUserStateToId(message.getChatId()));
-                postgresConnection.updateStateUserById(message.getChatId(), "MENU");
-
-                return MENU;
+                command.getKeyboardSubscription(message, postgresConnection.getSubscribeById(message.getChatId()));
+                postgresConnection.updateStateUserById(message.getChatId(), "DELETE_SUBSCRIBE");
+                return DELETE_SUBSCRIBE;
             }
 
             if (message.getText().equals(Button.SHOW.get())) {
@@ -134,6 +144,30 @@ public enum State {
         }
     },
 
+    SETTINGS {
+        public State doSomething(Message message) {
+            if (message.getText().equals(Button.HELP.get())) {
+                command.menu(message, "Пока что ничем не могу вам помочь!");
+                //  System.out.println("Doing Something in Menu state and jumping to SUBSCRIBE, argument = " + message.getText());
+                postgresConnection.updateStateUserById(message.getChatId(), "MENU");
+                return MENU;
+            }
+
+
+            if (message.getText().equals(Button.BACK.get())) {
+                //  System.out.println("Редактировать");
+                //   command.menu(message, postgresConnection.getUserStateToId(message.getChatId()));
+
+                command.menu(message, "Окей");
+                postgresConnection.updateStateUserById(message.getChatId(), "MENU");
+
+                return MENU;
+            } else return this;
+        }
+
+    },
+
+
     INPUT_SERVIE {
         public State doSomething(Message message) {
 
@@ -196,6 +230,29 @@ public enum State {
             return MENU;
         }
     },
+
+
+    DELETE_SUBSCRIBE {
+        public State doSomething(Message message) {
+
+
+            if (message.getText().equals(Button.BACK.get())) {
+                command.subscriptionMessage(message, "Окей");
+                postgresConnection.updateStateUserById(message.getChatId(), "SUBSCRIPTIONS");
+                return SUBSCRIPTIONS;
+            } else {
+                postgresConnection.deleteSubscribeByName(message.getText());
+                postgresConnection.updateStateUserById(message.getChatId(), "SUBSCRIPTIONS");
+                command.subscriptionMessage(message, "Подписка " + message.getText() + " удалена");
+
+                return SUBSCRIPTIONS;
+
+            }
+
+
+        }
+    },
+
 
     FINAL {
         public State doSomething(Message message) {
