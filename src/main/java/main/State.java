@@ -1,6 +1,7 @@
 package main;
 
 import ability.Button;
+import ability.Icon;
 import command.Command;
 import data.Subscribe;
 import database.PostgresConnection;
@@ -147,7 +148,7 @@ public enum State {
     SETTINGS {
         public State doSomething(Message message) {
             if (message.getText().equals(Button.HELP.get())) {
-                command.menu(message, "Пока что ничем не могу вам помочь!");
+                command.menu(message, "Ну и чем ты можешь мне помочь?! " + Icon.LOL.get() + Icon.LOL.get() + Icon.LOL.get());
                 //  System.out.println("Doing Something in Menu state and jumping to SUBSCRIBE, argument = " + message.getText());
                 postgresConnection.updateStateUserById(message.getChatId(), "MENU");
                 return MENU;
@@ -188,7 +189,7 @@ public enum State {
 
             //  System.out.println("Doing Something in INPUT_BILLING state and jumping to  MENU, argument = " + message.getText());
             billingPeriod = command.billingPeriod(message);
-            command.sendMessage(message, "Напишите первый платеж:\nНапример:\nСегодня\n29 ионя\n31 (актуальный месяц)");
+            command.sendMessage(message, "Напишите первый платеж:\nНапример:\nСегодня\n29 июня\n20 (актуальный месяц)");
 
             postgresConnection.updateStateUserById(message.getChatId(), "FIRST_PAYMENT");
 
@@ -225,7 +226,6 @@ public enum State {
                 return SUBSCRIPTIONS;
             }
 
-            System.out.println("3");
 
             subscribe.setFirstPayment(firstPayment);
             if (subscribe.isWrong()) {

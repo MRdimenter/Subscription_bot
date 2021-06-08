@@ -9,7 +9,8 @@ public enum Icon {
     NOT(":x:"),
     DOUBT(":zzz:"),
     FLAG(":checkered_flag:"),
-    STATIC(":memo:");
+    STATIC(":memo:"),
+    LOL(":upside_down:");
 
     private String value;
 

@@ -53,7 +53,7 @@ public class Command extends Start {
 
 
     public void getKeyboardSettings(Message message) {
-        sendMessage(message, "Настройка бота! Бета-тест не предусматривает настройку бота. В будущем будет доступна интеграция с сервисом Notion.", Keyboard.settings());
+        sendMessage(message, "Настройка бота! В будущем будет доступна интеграция с сервисом Notion.", Keyboard.settings());
     }
 
 
