@@ -17,23 +17,20 @@ public class PostgresConnection {
     private PreparedStatement preparedStatement;
 
 
-
     public void setUserToDatabase(long id, String firstName, String lastName, String userName) {
-            if(!isUser(id)) {
-                try {
-                    preparedStatement = SingletonConnection.getInstance().get().prepareStatement(SqlRequests.ADD_USER.get());
-                    preparedStatement.setLong(1, id);
-                    preparedStatement.setString(2, firstName);
-                    preparedStatement.setString(3, lastName);
-                    preparedStatement.setString(4, userName);
-                    preparedStatement.executeUpdate();
+        if (!isUser(id)) {
+            try {
+                preparedStatement = SingletonConnection.getInstance().get().prepareStatement(SqlRequests.ADD_USER.get());
+                preparedStatement.setLong(1, id);
+                preparedStatement.setString(2, firstName);
+                preparedStatement.setString(3, lastName);
+                preparedStatement.setString(4, userName);
+                preparedStatement.executeUpdate();
 
-                } catch (SQLException e) {
-                    log.severe("Ошибка PostgresConnection");
-                }
+            } catch (SQLException e) {
+                log.severe("Ошибка PostgresConnection");
             }
-            else log.info("Пользователь уже существует");
-
+        } else log.info("Пользователь уже существует");
 
 
     }
@@ -122,7 +119,7 @@ public class PostgresConnection {
                 subscribe.setBillingNumber(resultSet.getInt(2));
                 subscribe.setBillingDate(resultSet.getString(3));
                 subscribe.setFirstPaymentForNormalizeDate(resultSet.getString(4));
-                subscribe.setPrice(resultSet.getInt(5));
+                subscribe.setPrice(String.valueOf(resultSet.getInt(5)));
                 subscribes.add(subscribe);
             }
 
@@ -137,11 +134,6 @@ public class PostgresConnection {
 
     public static void main(String[] args) {
         PostgresConnection postgresConnection = new PostgresConnection();
-
-        // ArrayList<Subscribe> subscribes = postgresConnection.getStateSubscribeById(238515772);
-        //for (Subscribe sub : subscribes) System.out.println(sub.toString());
-
-        // System.out.println(new StatisticsManager().MonthlyStatisticsCalculator(subscribes).getTotal());
 
         System.out.println(postgresConnection.getStateUserById(123456));
 

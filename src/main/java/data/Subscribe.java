@@ -11,7 +11,7 @@ public class Subscribe {
     private int billingNumber;
     private String billingDate;
     private LocalDate firstPayment;
-    private int Price;
+    private String Price;
     private long userId;
     private TemporaryManager temporaryManager = new TemporaryManager();
 
@@ -54,6 +54,7 @@ public class Subscribe {
         Pair<Integer, String> pair = temporaryManager.parseBillingPeriod(billingPeriod);
         this.billingNumber = pair.getFirst();
         this.billingDate = pair.getSecond();
+        if (this.billingDate.equals("wrong")) wrong = true;
     }
 
     public LocalDate getFirstPayment() {
@@ -75,11 +76,12 @@ public class Subscribe {
     }
 
     public int getPrice() {
-        return Price;
+        return Integer.parseInt(Price);
     }
 
-    public void setPrice(int price) {
-        Price = price;
+    public void setPrice(String price) {
+        if (price.matches("-?\\d+(\\.\\d+)?")) Price = price; //проверка на число
+        else wrong = true;
     }
 
     public long getUserId() {

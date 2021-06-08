@@ -117,7 +117,7 @@ public class StatisticsManager {
 
     public static void main(String[] args) {
         Subscribe subscribe = new Subscribe();
-        subscribe.setPrice(366);
+        subscribe.setPrice("366");
         subscribe.setBillingNumber(2);
         subscribe.setBillingDate("year");
         subscribe.setFirstPaymentForNormalizeDate("2020-06-29");

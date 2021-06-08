@@ -14,6 +14,14 @@ public class TemporaryManager {
 
     public Pair<Integer, String> parseBillingPeriod(String billing) {
         String[] arrayBilling = billing.toLowerCase().split(" ");
+
+        /**
+         * Проверка на корректные данные
+         */
+
+        if (arrayBilling.length != 2) return new Pair<>(0, "wrong");
+
+
         if (arrayBilling[1].startsWith("мес"))
             return new Pair(Integer.parseInt(arrayBilling[0]), "month"); //Example: 3 месяца
         if (arrayBilling[1].startsWith("год") || arrayBilling[1].startsWith("лет")) // Example: 1 год
@@ -21,7 +29,7 @@ public class TemporaryManager {
         if (arrayBilling[1].startsWith("д")) return new Pair(Integer.parseInt(arrayBilling[0]), "day");
 
         log.info("Были неверно введены значения платежного периода");
-        return new Pair<>(null, null);
+        return new Pair<>(0, "wrong");
     }
 
 
@@ -39,7 +47,6 @@ public class TemporaryManager {
 
         try {
             if (date.length == 1 && checkingNumbersInMonth(Integer.parseInt(date[0]), LocalDate.now().getMonth())) {
-                System.out.println("Неккоректно");
                 return LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), Integer.parseInt(date[0]));
             }
 

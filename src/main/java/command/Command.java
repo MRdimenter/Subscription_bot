@@ -81,9 +81,9 @@ public class Command extends Start {
         return message.getText();
     }
 
-    public int howMuchIs(Message message) {
+    public String howMuchIs(Message message) {
         log.info("Сколько стоит подписка:" + message.getText());
-        return Integer.parseInt(message.getText());
+        return message.getText();
     }
 
 

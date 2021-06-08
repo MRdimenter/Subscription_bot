@@ -216,22 +216,30 @@ public enum State {
 
 
             Subscribe subscribe = new Subscribe();
-            System.out.println("1");
+
             subscribe.setNameService(serviceName);
-            System.out.println("2");
+
             subscribe.setBillingPeriod(billingPeriod);
+            if (subscribe.isWrong()) {
+                command.subscriptionMessage(message, "Был неккоректно введён расчётный период. Попробуйте ещё раз!");
+                return SUBSCRIPTIONS;
+            }
+
             System.out.println("3");
 
             subscribe.setFirstPayment(firstPayment);
             if (subscribe.isWrong()) {
-                command.subscriptionMessage(message, "Был неккоректно введён первый платёж. Попробуйте еще раз!");
+                command.subscriptionMessage(message, "Был неккоректно введён первый платёж. Попробуйте ещё раз!");
                 return SUBSCRIPTIONS;
             }
-            System.out.println("4");
-            subscribe.setPrice(command.howMuchIs(message));
-            System.out.println("5");
-            subscribe.setUserId(message.getChatId());
 
+            subscribe.setPrice(command.howMuchIs(message));
+            if (subscribe.isWrong()) {
+                command.subscriptionMessage(message, "Была неккоректно введена цена. Попробуйте ещё раз!");
+                return SUBSCRIPTIONS;
+            }
+
+            subscribe.setUserId(message.getChatId());
 
             postgresConnection.addSubscribe(subscribe);
             command.menu(message, "Подписка добавлена");
