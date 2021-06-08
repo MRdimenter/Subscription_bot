@@ -15,15 +15,9 @@ public class Subscribe {
     private long userId;
     private TemporaryManager temporaryManager = new TemporaryManager();
 
-    public int getWrong() {
-        return wrong;
-    }
 
-    public void setWrong(int wrong) {
-        this.wrong = wrong;
-    }
 
-    private int wrong = 0;
+    private boolean wrong = false;
 
     public Subscribe() {
 
@@ -36,6 +30,14 @@ public class Subscribe {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public boolean isWrong() {
+        return wrong;
+    }
+
+    public void setWrong(boolean wrong) {
+        this.wrong = wrong;
     }
 
     public String getNameService() {
@@ -60,8 +62,7 @@ public class Subscribe {
 
     public void setFirstPayment(String firstPayment) {
         this.firstPayment = temporaryManager.firstPaymentToLocalDate(firstPayment);
-        if (this.firstPayment == null || this.firstPayment.equals("")) wrong++;
-        System.out.println(wrong);
+        if (this.firstPayment.toString().equals("2000-01-01")) wrong = true;
     }
 
     public void setFirstPaymentForNormalizeDate(String firstPayment) {

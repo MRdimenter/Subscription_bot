@@ -223,7 +223,10 @@ public enum State {
             System.out.println("3");
 
             subscribe.setFirstPayment(firstPayment);
-            if (subscribe.getWrong() > 0) System.out.println("ОШИБКА");
+            if (subscribe.isWrong()) {
+                command.subscriptionMessage(message, "Был неккоректно введён первый платёж. Попробуйте еще раз!");
+                return SUBSCRIPTIONS;
+            }
             System.out.println("4");
             subscribe.setPrice(command.howMuchIs(message));
             System.out.println("5");
