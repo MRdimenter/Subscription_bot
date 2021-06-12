@@ -22,6 +22,12 @@ public class Model {
         log.info("--- Main.Start model ---");
         log.info("СООБЩЕНИЕ МОДЕЛИ --------------->\" + update.getMessage().getText()");
 
+        /**
+         * NOTIFICATION
+         * LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), Integer.parseInt(date[0]))
+         */
+
+
         if (update.getMessage().getText().equals("/start") || !postgresConnection.getStateUserById(update.getMessage().getChatId()).equals(""))
             compileUsers.add(new User(update.getMessage()), update.getMessage());
         compileUsers.compile(update.getMessage());

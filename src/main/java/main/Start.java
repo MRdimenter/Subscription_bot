@@ -11,14 +11,16 @@ import java.util.logging.Logger;
 public class Start extends TelegramLongPollingBot {
     private static Logger log = Logger.getLogger(Start.class.getName()); //логирование
     private Model model = new Model();
-    public static void main(String[] args) {
 
+    public static void main(String[] args) {
         ApiContextInitializer.init();
         TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
+        new NotificiationInitializer().start(); //Запускаем поток для Нотификаций
 
         try {
 
             telegramBotsApi.registerBot(new Start());
+
         } catch (TelegramApiRequestException e) {
             e.printStackTrace();
         }

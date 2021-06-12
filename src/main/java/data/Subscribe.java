@@ -13,8 +13,8 @@ public class Subscribe {
     private LocalDate firstPayment;
     private String Price;
     private long userId;
+    private int firstPaymentTime;
     private TemporaryManager temporaryManager = new TemporaryManager();
-
 
 
     private boolean wrong = false;
@@ -23,6 +23,13 @@ public class Subscribe {
 
     }
 
+    public int getFirstPaymentTime() {
+        return firstPaymentTime;
+    }
+
+    public void setFirstPaymentTime(int firstPaymentTime) {
+        this.firstPaymentTime = firstPaymentTime;
+    }
 
     public long getId() {
         return id;

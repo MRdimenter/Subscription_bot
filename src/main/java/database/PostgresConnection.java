@@ -9,9 +9,9 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.logging.Logger;
-
 public class PostgresConnection {
     private static Logger log = Logger.getLogger(PostgresConnection.class.getName()); //логирование
     private PreparedStatement preparedStatement;
@@ -69,7 +69,8 @@ public class PostgresConnection {
 
     public void addSubscribe(Subscribe subscribe) {
         try {
-
+            java.util.Date date = new java.util.Date();
+            SimpleDateFormat formatForDateNow = new SimpleDateFormat("k");
             preparedStatement = SingletonConnection.getInstance().get().prepareStatement(SqlRequests.ADD_SUBSCRIBE.get());
             preparedStatement.setString(1, subscribe.getNameService());
             preparedStatement.setInt(2, subscribe.getBillingNumber());
@@ -77,13 +78,15 @@ public class PostgresConnection {
             preparedStatement.setDate(4, new java.sql.Date(Date.valueOf(subscribe.getFirstPayment()).getTime()));
             preparedStatement.setInt(5, subscribe.getPrice());
             preparedStatement.setLong(6, subscribe.getUserId());
-            preparedStatement.executeUpdate();
+            preparedStatement.setInt(7, Integer.parseInt(formatForDateNow.format(date)));
 
+            preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
 
     /**
      * Вывод всех подписок по ID пользователя
@@ -120,6 +123,7 @@ public class PostgresConnection {
                 subscribe.setBillingDate(resultSet.getString(3));
                 subscribe.setFirstPaymentForNormalizeDate(resultSet.getString(4));
                 subscribe.setPrice(String.valueOf(resultSet.getInt(5)));
+                subscribe.setFirstPaymentTime(resultSet.getInt(6));
                 subscribes.add(subscribe);
             }
 
@@ -215,5 +219,35 @@ public class PostgresConnection {
 
 
     }
+
+    /**
+     * Вывод всех ID пользователей
+     */
+
+
+    public ArrayList<Long> getUsersId() {
+
+        try {
+            ArrayList<Long> id = new ArrayList<>();
+            preparedStatement = SingletonConnection.getInstance().get().prepareStatement(SqlRequests.OUT_ID_USERS.get());
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+
+                id.add(resultSet.getLong(1));
+            }
+
+            return id;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+
+    }
 }
+
+
+
 

@@ -115,16 +115,6 @@ public class StatisticsManager {
         return YearMonth.now().lengthOfYear();
     }
 
-    public static void main(String[] args) {
-        Subscribe subscribe = new Subscribe();
-        subscribe.setPrice("366");
-        subscribe.setBillingNumber(2);
-        subscribe.setBillingDate("year");
-        subscribe.setFirstPaymentForNormalizeDate("2020-06-29");
-        StatisticsManager statisticsManager = new StatisticsManager();
 
-        System.out.println(statisticsManager.sumSubscribeOnDay(subscribe));
-        //System.out.println(statisticsManager.daysInYear());
-    }
 
 }

@@ -9,8 +9,8 @@
         <module name="SubscriptionBot" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="SubscriptionBot" target="1.8" />
+    <bytecodeTargetLevel target="11">
+      <module name="SubscriptionBot" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>
