@@ -89,6 +89,8 @@ public class NotificiationInitializer extends Thread {
             Date start = myFormat.parse(startTime);
             Date end = myFormat.parse(endTime);
 
+            System.out.println("Разница дат: " + getDifferenceDays(start, end));
+            System.out.println("Калькулятор заница: " + (subscribe.getBillingNumber() * 30 - 1));
             if (subscribe.getBillingDate().equals("month") && getDifferenceDays(start, end) == (subscribe.getBillingNumber() * 30 - 1))
                 return true;
 
