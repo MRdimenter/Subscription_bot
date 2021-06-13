@@ -60,7 +60,8 @@ public class NotificiationInitializer extends Thread {
 
 
         for (int i = 0; i < subs.size(); i++) {
-
+            System.out.println("Проверка времени подписки: " + subs.get(i) + " Время: " + subs.get(i).getFirstPaymentTime());
+            System.out.println("Проверка времени на сервере: " + Integer.parseInt(formatForDateNow.format(date.getTime())));
             if (subs.get(i).getFirstPaymentTime() == Integer.parseInt(formatForDateNow.format(date.getTime())) && calulateBilling(subs.get(i))) {
                 text += String.format("Ваша подписка: \"%s\" истечёт через 24 часа\n", subs.get(i).getNameService());
                 sendNotification(id, text);
@@ -96,17 +97,7 @@ public class NotificiationInitializer extends Thread {
             if (subscribe.getBillingDate().equals("day") && getDifferenceDays(start, end) == subscribe.getBillingNumber() - 1)
                 return true;
 
-       /* if(subscribe.getBillingDate().equals("month")
-                && setLocalDate(subscribe.getFirstPayment().toString()).getMonth().plus(subscribe.getBillingNumber()) == LocalDate.now().getMonth()
-                && setLocalDate(subscribe.getFirstPayment().toString()).getDayOfMonth() == LocalDate.now().getDayOfMonth()) return true;
 
-        if(subscribe.getBillingDate().equals("year")
-                && setLocalDate(subscribe.getFirstPayment().toString()).plusYears(subscribe.getBillingNumber()).getYear() == LocalDate.now().getYear()
-                && setLocalDate(subscribe.getFirstPayment().toString()).getDayOfMonth() == LocalDate.now().getDayOfMonth()
-                && setLocalDate(subscribe.getFirstPayment().toString()).getMonth() == LocalDate.now().getMonth() ) return true;*/
-
-            // if(subscribe.getBillingDate().equals("day")
-            //       && setLocalDate(subscribe.getFirstPayment().toString()).plusDays(subscribe.getBillingNumber()).getDayOfMonth() == LocalDate.now().getDayOfMonth()) return true;
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -161,10 +152,13 @@ public class NotificiationInitializer extends Thread {
     }
 
     public static void main(String[] args) {
-        Date date = new Date();
+     /*   Date date = new Date();
         NotificiationInitializer notificiationInitializer = new NotificiationInitializer();
         SimpleDateFormat formatForDateNow = new SimpleDateFormat("k");
-        System.out.println(Integer.parseInt(formatForDateNow.format(date)));
+        System.out.println(Integer.parseInt(formatForDateNow.format(date)));*/
+        System.out.println("WORK");
+        NotificiationInitializer notificiationInitializer = new NotificiationInitializer();
+        System.out.println(notificiationInitializer.notification((long) 238515772));
     }
 
 }
