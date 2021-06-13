@@ -63,6 +63,7 @@ public class NotificiationInitializer extends Thread {
             System.out.println("Проверка времени подписки: " + subs.get(i) + " Время: " + subs.get(i).getFirstPaymentTime());
             System.out.println("Проверка времени на сервере: " + Integer.parseInt(formatForDateNow.format(date.getTime())));
             if (subs.get(i).getFirstPaymentTime() == Integer.parseInt(formatForDateNow.format(date.getTime())) && calulateBilling(subs.get(i))) {
+                System.out.println("Условие True");
                 text += String.format("Ваша подписка: \"%s\" истечёт через 24 часа\n", subs.get(i).getNameService());
                 sendNotification(id, text);
             }
