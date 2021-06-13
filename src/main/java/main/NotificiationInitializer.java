@@ -160,4 +160,11 @@ public class NotificiationInitializer extends Thread {
         return TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
     }
 
+    public static void main(String[] args) {
+        Date date = new Date();
+        NotificiationInitializer notificiationInitializer = new NotificiationInitializer();
+        SimpleDateFormat formatForDateNow = new SimpleDateFormat("k");
+        System.out.println(Integer.parseInt(formatForDateNow.format(date)));
+    }
+
 }

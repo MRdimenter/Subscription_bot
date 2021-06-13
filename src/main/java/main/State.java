@@ -2,6 +2,7 @@ package main;
 
 import ability.Button;
 import ability.Icon;
+import ability.TextMessage;
 import command.Command;
 import data.Subscribe;
 import database.PostgresConnection;
@@ -24,7 +25,7 @@ public enum State {
 
 
             if (message.getText().equals("/start")) {
-                command.menu(message, "Добро пожаловать! Теперь вы можете отслеживать ваши платные подписки в любое время :)");
+                command.menu(message, TextMessage.StartDialog.get());
                 postgresConnection.setUserToDatabase(message.getChatId(), message.getFrom().getFirstName(), message.getFrom().getLastName(), message.getFrom().getUserName());
             }
 

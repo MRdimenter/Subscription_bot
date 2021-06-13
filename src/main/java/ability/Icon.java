@@ -10,7 +10,13 @@ public enum Icon {
     DOUBT(":zzz:"),
     FLAG(":checkered_flag:"),
     STATIC(":memo:"),
-    LOL(":upside_down:");
+    LOL(":upside_down:"),
+    space_invader(":space_invader:"),
+    dark_sunglasses(":dark_sunglasses:"),
+    alarm_clock(":alarm_clock:"),
+    bell(":bell:"),
+    calendar(":calendar:\n"),
+    eye(":eye:");
 
     private String value;
 

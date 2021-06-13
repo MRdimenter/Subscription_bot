@@ -1,6 +1,7 @@
 package command;
 
 import ability.Icon;
+import ability.TextMessage;
 import data.Subscribe;
 import data.SubscribeState;
 import main.Keyboard;
@@ -28,7 +29,7 @@ public class Command extends Start {
     }
 
     public void subscription(Message message) {
-        sendMessage(message, "Добавьте или редактируете свои подписочные сервисы", Keyboard.subscribe());
+        sendMessage(message, TextMessage.Subscription.get(), Keyboard.subscribe());
     }
 
 
