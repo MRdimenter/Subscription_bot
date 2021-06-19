@@ -12,10 +12,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 public class NotificiationInitializer extends Thread {
@@ -62,6 +59,7 @@ public class NotificiationInitializer extends Thread {
         for (int i = 0; i < subs.size(); i++) {
             System.out.println("Проверка времени подписки: " + subs.get(i) + " Время: " + subs.get(i).getFirstPaymentTime());
             System.out.println("Проверка времени на сервере: " + Integer.parseInt(formatForDateNow.format(date.getTime())));
+            postgresConnection.updateFirstPayment(subs.get(i));
             if (subs.get(i).getFirstPaymentTime() == Integer.parseInt(formatForDateNow.format(date.getTime())) && calulateBilling(subs.get(i))) {
                 System.out.println("Условие True");
                 text += String.format("Ваша подписка: \"%s\" истечёт через 24 часа\n", subs.get(i).getNameService());
@@ -80,6 +78,8 @@ public class NotificiationInitializer extends Thread {
      */
 
     public boolean calulateBilling(Subscribe subscribe) {
+
+
         try {
             SimpleDateFormat myFormat = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -88,17 +88,22 @@ public class NotificiationInitializer extends Thread {
 
             Date start = myFormat.parse(startTime);
             Date end = myFormat.parse(endTime);
+            System.out.println("Тест: " + subscribe.getNameService() + " Разница дней: " + getDifferenceDays(start, end));
 
-            System.out.println("Разница дат: " + getDifferenceDays(start, end));
-            System.out.println("Калькулятор заница: " + (subscribe.getBillingNumber() * 30 - 1));
-            if (subscribe.getBillingDate().equals("month") && getDifferenceDays(start, end) == (subscribe.getBillingNumber() * 30 - 1))
+            if (subscribe.getBillingDate().equals("month") && getDifferenceDays(start, end) == (subscribe.getBillingNumber() * 30 - 1)) {
+                postgresConnection.updateFirstPayment(subscribe);
                 return true;
+            }
 
-            if (subscribe.getBillingDate().equals("year") && getDifferenceDays(start, end) == (subscribe.getBillingNumber() * 365) - 1)
+            if (subscribe.getBillingDate().equals("year") && getDifferenceDays(start, end) == (subscribe.getBillingNumber() * 365) - 1) {
+                postgresConnection.updateFirstPayment(subscribe);
                 return true;
+            }
 
-            if (subscribe.getBillingDate().equals("day") && getDifferenceDays(start, end) == subscribe.getBillingNumber() - 1)
+            if (subscribe.getBillingDate().equals("day") && getDifferenceDays(start, end) == subscribe.getBillingNumber() - 1) {
+                postgresConnection.updateFirstPayment(subscribe);
                 return true;
+            }
 
 
         } catch (ParseException e) {
@@ -154,14 +159,38 @@ public class NotificiationInitializer extends Thread {
         return TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
     }
 
+
+    /**
+     * Метод для добавления к дате N дней
+     */
+
+    public static String getCountDays(int count, Date date) {
+        SimpleDateFormat myFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar c = new Calendar.Builder().setInstant(date).build();
+        //Calendar c= Calendar.getInstance();
+        c.add(Calendar.DATE, count);
+        date = c.getTime();
+        return myFormat.format(date);
+    }
+
     public static void main(String[] args) {
      /*   Date date = new Date();
         NotificiationInitializer notificiationInitializer = new NotificiationInitializer();
         SimpleDateFormat formatForDateNow = new SimpleDateFormat("k");
         System.out.println(Integer.parseInt(formatForDateNow.format(date)));*/
-        System.out.println("WORK");
+        //System.out.println("WORK");
+        //NotificiationInitializer notificiationInitializer = new NotificiationInitializer();
+        //System.out.println(notificiationInitializer.notification((long) 238515772));
+
+        // date.setTime(2);
         NotificiationInitializer notificiationInitializer = new NotificiationInitializer();
-        System.out.println(notificiationInitializer.notification((long) 238515772));
+
+        //  System.out.println(getCountDays(30, new Date()));
+        notificiationInitializer.notification((long) 238515772);
+        //System.out.println(String.valueOf(new java.util.Date().getTime()));
+
+        // PostgresConnection postgresConnection = new PostgresConnection();
+        // postgresConnection.updateFirstPaymentbeta(238515772, "один");
     }
 
 }

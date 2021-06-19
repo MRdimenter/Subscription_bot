@@ -124,6 +124,7 @@ public class PostgresConnection {
                 subscribe.setFirstPaymentForNormalizeDate(resultSet.getString(4));
                 subscribe.setPrice(String.valueOf(resultSet.getInt(5)));
                 subscribe.setFirstPaymentTime(resultSet.getInt(6));
+                subscribe.setUserId(resultSet.getLong(7));
                 subscribes.add(subscribe);
             }
 
@@ -246,6 +247,29 @@ public class PostgresConnection {
         return null;
 
     }
+
+
+    /**
+     * Обновление даты оформления подписки
+     */
+
+    public void updateFirstPayment(Subscribe subscribe) {
+        try {
+            System.out.println(subscribe.getNameService() + subscribe.getUserId());
+
+            preparedStatement = SingletonConnection.getInstance().get().prepareStatement(SqlRequests.UPDATE_DATE_SUBSCRIBE.get());
+            preparedStatement.setDate(1, new java.sql.Date(new java.util.Date().getTime()));
+            preparedStatement.setString(2, subscribe.getNameService());
+            preparedStatement.setLong(3, subscribe.getUserId());
+
+            preparedStatement.executeUpdate();
+            System.out.println("Работает");
+        } catch (SQLException e) {
+            log.severe("Ошибка PostgresConnection");
+        }
+    }
+
+
 }
 
 
