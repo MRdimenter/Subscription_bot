@@ -260,7 +260,7 @@ public class PostgresConnection {
             date.setDate(date.getDay() + 1);
 
             preparedStatement = SingletonConnection.getInstance().get().prepareStatement(SqlRequests.UPDATE_DATE_SUBSCRIBE.get());
-            preparedStatement.setDate(1, new java.sql.Date(new java.util.Date().getTime()));
+            preparedStatement.setDate(1, new java.sql.Date(date.getTime()));
             preparedStatement.setString(2, subscribe.getNameService());
             preparedStatement.setLong(3, subscribe.getUserId());
 
