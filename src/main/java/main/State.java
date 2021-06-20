@@ -149,7 +149,7 @@ public enum State {
     SETTINGS {
         public State doSomething(Message message) {
             if (message.getText().equals(Button.HELP.get())) {
-                command.menu(message, "Ну и чем ты можешь мне помочь?! " + Icon.LOL.get() + Icon.LOL.get() + Icon.LOL.get());
+                command.menu(message, "По всем интересующим вас вопросам, пишите @mrdimenter " + Icon.space_invader.get());
                 //  System.out.println("Doing Something in Menu state and jumping to SUBSCRIBE, argument = " + message.getText());
                 postgresConnection.updateStateUserById(message.getChatId(), "MENU");
                 return MENU;
