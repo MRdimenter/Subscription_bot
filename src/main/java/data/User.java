@@ -62,7 +62,7 @@ public class User extends Start {
     }
 
     public void setUser() {
-        postgresConnection.setUserToDatabase(id, firstName, lastName, userName);
+       // postgresConnection.setUserToDatabase(id, firstName, lastName, userName);
     }
 
 

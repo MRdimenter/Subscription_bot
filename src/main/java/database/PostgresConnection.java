@@ -28,7 +28,7 @@ public class PostgresConnection {
                 preparedStatement.executeUpdate();
 
             } catch (SQLException e) {
-                log.severe("Ошибка PostgresConnection");
+                log.severe("Ошибка PostgresConnection  " + e);
             }
         } else log.info("Пользователь уже существует");
 
@@ -131,20 +131,13 @@ public class PostgresConnection {
             return subscribes;
 
         } catch (SQLException e) {
+
             e.printStackTrace();
         }
         return null;
     }
 
 
-    public static void main(String[] args) {
-        PostgresConnection postgresConnection = new PostgresConnection();
-
-        System.out.println(postgresConnection.getStateUserById(123456));
-
-        postgresConnection.setStateUserById(2, "NEOK");
-        System.out.println(postgresConnection.getStateUserById(2));
-    }
 
 
     /**
@@ -165,7 +158,7 @@ public class PostgresConnection {
             return state;
 
         } catch (SQLException e) {
-            System.out.println("Ошибка");
+            System.out.println("Ошибка " + e);
         }
         return null;
     }
@@ -269,6 +262,12 @@ public class PostgresConnection {
         }
     }
 
+
+    public static void main(String[] args) {
+        PostgresConnection postgresConnection = new PostgresConnection();
+
+        postgresConnection.setUserToDatabase(123123321, "Dmitry", "", "mrdimenter");
+    }
 
 }
 
