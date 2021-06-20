@@ -89,7 +89,7 @@ public class NotificiationInitializer extends Thread {
 
             Date start = myFormat.parse(startTime);
             Date end = myFormat.parse(endTime);
-            log.info("Тест: " + subscribe.getNameService() + " Разница дней: " + getDifferenceDays(start, end));
+            //log.info("Тест: " + subscribe.getNameService() + " Разница дней: " + getDifferenceDays(start, end));
 
             if (subscribe.getBillingDate().equals("month") && getDifferenceDays(start, end) == (subscribe.getBillingNumber() * 30 - 1)) {
                 postgresConnection.updateFirstPayment(subscribe);

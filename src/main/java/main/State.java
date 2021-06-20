@@ -20,6 +20,7 @@ public enum State {
      * 2) Статистика
      * 3) Настройки
      */
+
     MENU {
         public State doSomething(Message message) {
 

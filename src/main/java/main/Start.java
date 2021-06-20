@@ -31,15 +31,12 @@ public class Start extends TelegramLongPollingBot {
 
     /**
      * Метод для приема сообщений.
+     *
      * @param update Содержит сообщение от пользователя.
-     *               
      */
 
     public void onUpdateReceived(Update update) {
-        System.out.println("__________________ НОВЫЙ АПДЕЙТ ______________________");
-        System.out.println("СООБЩЕНИЕ ----------> " + update.getMessage().getText());
-
-       model.start(update);
+        model.start(update);
     }
 
 
