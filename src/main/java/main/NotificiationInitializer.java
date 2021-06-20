@@ -14,8 +14,10 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Logger;
 
 public class NotificiationInitializer extends Thread {
+    private static Logger log = Logger.getLogger(NotificiationInitializer.class.getName()); //логирование
     PostgresConnection postgresConnection = new PostgresConnection();
     SimpleDateFormat formatForDateNow = new SimpleDateFormat("k");
     Date date = new Date();
@@ -57,10 +59,10 @@ public class NotificiationInitializer extends Thread {
 
 
         for (int i = 0; i < subs.size(); i++) {
-            System.out.println("Проверка времени подписки: " + subs.get(i) + " Время: " + subs.get(i).getFirstPaymentTime());
-            System.out.println("Проверка времени на сервере: " + Integer.parseInt(formatForDateNow.format(date.getTime())));
+            // log.info("Проверка времени подписки: " + subs.get(i) + " Время: " + subs.get(i).getFirstPaymentTime());
+            // log.info("Проверка времени на сервере: " + Integer.parseInt(formatForDateNow.format(date.getTime())));
+
             if (subs.get(i).getFirstPaymentTime() == Integer.parseInt(formatForDateNow.format(date.getTime())) && calulateBilling(subs.get(i))) {
-                System.out.println("Условие True");
                 text += String.format("Ваша подписка: \"%s\" истечёт через 24 часа\n", subs.get(i).getNameService());
                 sendNotification(id, text);
             }
@@ -87,7 +89,7 @@ public class NotificiationInitializer extends Thread {
 
             Date start = myFormat.parse(startTime);
             Date end = myFormat.parse(endTime);
-            System.out.println("Тест: " + subscribe.getNameService() + " Разница дней: " + getDifferenceDays(start, end));
+            log.info("Тест: " + subscribe.getNameService() + " Разница дней: " + getDifferenceDays(start, end));
 
             if (subscribe.getBillingDate().equals("month") && getDifferenceDays(start, end) == (subscribe.getBillingNumber() * 30 - 1)) {
                 postgresConnection.updateFirstPayment(subscribe);

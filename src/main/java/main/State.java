@@ -65,7 +65,7 @@ public enum State {
 
             if (message.getText().equals(Button.ADD.get())) {//если клиент нажал кнопку добавить
                 // System.out.println("Doing Something in ADDING state and jumping to  INPUT_SERVIE, argument = " + message.getText());
-                command.sendMessage(message, "Напишите имя сервиса:");
+                command.sendMessage(message, Icon.cyclone.get() + " Напишите название подписки " + Icon.cyclone.get());
                 postgresConnection.updateStateUserById(message.getChatId(), "INPUT_SERVIE");
 
                 return INPUT_SERVIE;
@@ -177,7 +177,9 @@ public enum State {
             //  System.out.println("Doing Something in INPUT_SERVIE state and jumping to INPUT_BILLING, argument = " + message.getText());
             serviceName = command.nameService(message);
 
-            command.sendMessage(message, "Напишите расчётный период\nНапример: 1 месяц, 3 месяца, 1 год");
+            command.sendMessage(message, Icon.date.get() + " Напишите расчётный период подписки " + Icon.date.get() + "\n\n" +
+                    "Каждый раз по истечению этого периода вы либо продлеваете подписку, либо отменяете.\n" +
+                    "Например: 1 день, 1 месяц, 3 месяца, 1 год.");
             postgresConnection.updateStateUserById(message.getChatId(), "INPUT_BILLING");
 
             return INPUT_BILLING;
@@ -190,7 +192,9 @@ public enum State {
 
             //  System.out.println("Doing Something in INPUT_BILLING state and jumping to  MENU, argument = " + message.getText());
             billingPeriod = command.billingPeriod(message);
-            command.sendMessage(message, "Напишите первый платеж:\nНапример:\nСегодня\n29 июня\n20 (актуальный месяц)");
+            command.sendMessage(message, Icon.spiralcalendar.get() + " Напишите дату первого платежа " + Icon.spiralcalendar.get() +
+                    "\n\n" +
+                    "Например: Сегодня, 29 июня, 20 (текущий месяц) ");
 
             postgresConnection.updateStateUserById(message.getChatId(), "FIRST_PAYMENT");
 
@@ -205,7 +209,7 @@ public enum State {
 
             firstPayment = command.firstPayment(message);
 
-            command.sendMessage(message, "Напишите сколько стоит подписка:");
+            command.sendMessage(message, Icon.creditcard.get() + " Напишите сколько стоит подписка " + Icon.creditcard.get());
 
             postgresConnection.updateStateUserById(message.getChatId(), "HOW_MUCH");
 
@@ -243,7 +247,7 @@ public enum State {
             subscribe.setUserId(message.getChatId());
 
             postgresConnection.addSubscribe(subscribe);
-            command.menu(message, "Подписка добавлена");
+            command.menu(message, Icon.unicornface.get() + " Подписка добавлена " + Icon.unicornface.get());
             postgresConnection.updateStateUserById(message.getChatId(), "MENU");
 
             return MENU;

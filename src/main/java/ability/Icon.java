@@ -15,8 +15,14 @@ public enum Icon {
     dark_sunglasses(":dark_sunglasses:"),
     alarm_clock(":alarm_clock:"),
     bell(":bell:"),
-    calendar(":calendar:\n"),
-    eye(":eye:");
+    calendar(":calendar:"),
+    eye(":eye:"),
+    cyclone(":cyclone:"),
+    date(":date:"),
+    creditcard(":credit_card:"),
+    spiralcalendar(":spiral_calendar_pad:"),
+    unicornface(":unicorn_face:");
+
 
     private String value;
 

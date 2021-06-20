@@ -257,15 +257,13 @@ public class PostgresConnection {
         try {
             System.out.println(subscribe.getNameService() + subscribe.getUserId());
             java.util.Date date = new java.util.Date();
-            date.setDate(date.getDay() + 1);
 
             preparedStatement = SingletonConnection.getInstance().get().prepareStatement(SqlRequests.UPDATE_DATE_SUBSCRIBE.get());
-            preparedStatement.setDate(1, new java.sql.Date(date.getTime()));
+            preparedStatement.setDate(1, new java.sql.Date(date.getTime() + 86400000));
             preparedStatement.setString(2, subscribe.getNameService());
             preparedStatement.setLong(3, subscribe.getUserId());
 
             preparedStatement.executeUpdate();
-            System.out.println("Работает");
         } catch (SQLException e) {
             log.severe("Ошибка PostgresConnection");
         }
