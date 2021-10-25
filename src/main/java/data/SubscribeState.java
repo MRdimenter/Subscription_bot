@@ -3,6 +3,7 @@ package data;
 import java.util.HashMap;
 import java.util.Map;
 
+//Cостояние подписки
 public class SubscribeState {
     private double total; //Общая стоимость подписок
     private Map<String, Double> subscribeState;
