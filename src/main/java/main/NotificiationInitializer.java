@@ -54,7 +54,7 @@ public class NotificiationInitializer extends Thread {
 
 
     public String notification(Long id) {
-
+        log.info("Запуск Notification");
 
         String text = "";
         ArrayList<Subscribe> subs = postgresConnection.getStateSubscribeById(id);
@@ -81,7 +81,7 @@ public class NotificiationInitializer extends Thread {
      */
 
     public boolean calulateBilling(Subscribe subscribe) {
-
+        log.info("Запуск calculateBilling");
 
         try {
             SimpleDateFormat myFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -94,16 +94,19 @@ public class NotificiationInitializer extends Thread {
             //log.info("Тест: " + subscribe.getNameService() + " Разница дней: " + getDifferenceDays(start, end));
 
             if (subscribe.getBillingDate().equals("month") && getDifferenceDays(start, end) == (subscribe.getBillingNumber() * 30 - 1)) {
+                log.info("Успешное выполнение условия за месяц");
                 postgresConnection.updateFirstPayment(subscribe);
                 return true;
             }
 
             if (subscribe.getBillingDate().equals("year") && getDifferenceDays(start, end) == (subscribe.getBillingNumber() * 365) - 1) {
+                log.info("Успешное выполнение условия за год");
                 postgresConnection.updateFirstPayment(subscribe);
                 return true;
             }
 
             if (subscribe.getBillingDate().equals("day") && getDifferenceDays(start, end) == subscribe.getBillingNumber() - 1) {
+                log.info("Успешное выполнение условия за день");
                 postgresConnection.updateFirstPayment(subscribe);
                 return true;
             }
