@@ -63,6 +63,9 @@ public class NotificiationInitializer extends Thread {
         for (int i = 0; i < subs.size(); i++) {
             // log.info("Проверка времени подписки: " + subs.get(i) + " Время: " + subs.get(i).getFirstPaymentTime());
             // log.info("Проверка времени на сервере: " + Integer.parseInt(formatForDateNow.format(date.getTime())));
+            log.info("subs.get(i).getFirstPaymentTime() = " + subs.get(i).getFirstPaymentTime() );
+            log.info("Integer.parseInt(formatForDateNow.format(date.getTime())) = " + Integer.parseInt(formatForDateNow.format(date.getTime())) );
+            log.info("calulateBilling(subs.get(i)) = " + calulateBilling(subs.get(i)) );
 
             if (subs.get(i).getFirstPaymentTime() == Integer.parseInt(formatForDateNow.format(date.getTime())) && calulateBilling(subs.get(i))) {
                 text += String.format("Ваша подписка: \"%s\" истечёт через 24 часа\n", subs.get(i).getNameService());
