@@ -147,7 +147,7 @@ public class NotificiationInitializer extends Thread {
 
         HttpRequest request = HttpRequest.newBuilder()
                 .GET()
-                .uri(builder.build(System.getenv("BOT_NAME") + System.getenv("BOT_TOKEN")))
+                .uri(builder.build("bot" + System.getenv("BOT_TOKEN")))
                 .timeout(Duration.ofSeconds(5))
                 .build();
 
@@ -196,7 +196,7 @@ public class NotificiationInitializer extends Thread {
         NotificiationInitializer notificiationInitializer = new NotificiationInitializer();
 
         //  System.out.println(getCountDays(30, new Date()));
-        notificiationInitializer.notification((long) 238515772);
+
         //System.out.println(String.valueOf(new java.util.Date().getTime()));
 
         // PostgresConnection postgresConnection = new PostgresConnection();
