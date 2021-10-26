@@ -147,7 +147,7 @@ public class NotificiationInitializer extends Thread {
 
         HttpRequest request = HttpRequest.newBuilder()
                 .GET()
-                .uri(builder.build("bot" + "1236836643:AAG5WGEaULc1R72Q2roDGcswJx55N-TMyxc"))
+                .uri(builder.build(System.getenv("BOT_NAME") + System.getenv("BOT_TOKEN")))
                 .timeout(Duration.ofSeconds(5))
                 .build();
 
