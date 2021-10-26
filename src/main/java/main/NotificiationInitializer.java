@@ -29,7 +29,7 @@ public class NotificiationInitializer extends Thread {
          */
         @Override
         public void run() {
-
+            log.info("Запуск таймера синхронизации");
             ArrayList arrayList = postgresConnection.getUsersId();
 
             for (int i = 0; i < arrayList.size(); i++) {
@@ -46,7 +46,7 @@ public class NotificiationInitializer extends Thread {
 
     @Override
     public void run() {
-        log.info("Запуск таймера синхронизации");
+        log.info("Запуск потока синхронизации");
         timer.schedule(sometask, 0l, 1000 * 60); //синхронизация запускается один раз в минуту
         // timer.schedule(sometask, 0l, 1000 * 60 * 60); //синхронизация запускается один раз в час
 
