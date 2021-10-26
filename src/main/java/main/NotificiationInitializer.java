@@ -46,6 +46,7 @@ public class NotificiationInitializer extends Thread {
 
     @Override
     public void run() {
+        log.info("Запуск таймера синхронизации");
         timer.schedule(sometask, 0l, 1000 * 60 * 60); //синхронизация запускается один раз в час
 
     }
